@@ -28,7 +28,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/turtlebot3_ultrasound_default_sensor.h)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 # argos3/plugins/robots/turtlebot3/real_robot
-if(ARGOS_BUILD_FOR STREQUAL "khiv")
+if(ARGOS_BUILD_FOR STREQUAL "tb3")
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_TURTLEBOT3_REALROBOT
     real_robot/real_turtlebot3.h
     real_robot/real_turtlebot3_device.h
@@ -43,7 +43,7 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
     real_robot/real_turtlebot3_lidar_sensor.h
     real_robot/real_turtlebot3_proximity_sensor.h
     real_robot/real_turtlebot3_ultrasound_sensor.h)
-endif(ARGOS_BUILD_FOR STREQUAL "khiv")
+endif(ARGOS_BUILD_FOR STREQUAL "tb3")
 
 #
 # turtlebot3 sources
@@ -87,7 +87,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
       simulator/qtopengl_turtlebot3.cpp)
   endif(ARGOS_QTOPENGL_FOUND)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
-if(ARGOS_BUILD_FOR STREQUAL "khiv")
+if(ARGOS_BUILD_FOR STREQUAL "tb3")
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_TURTLEBOT3
     ${ARGOS3_SOURCES_PLUGINS_ROBOTS_TURTLEBOT3}
     ${ARGOS3_HEADERS_PLUGINS_ROBOTS_TURTLEBOT3_REALROBOT}
@@ -104,7 +104,7 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
     real_robot/real_turtlebot3_lidar_sensor.cpp
     real_robot/real_turtlebot3_proximity_sensor.cpp
     real_robot/real_turtlebot3_ultrasound_sensor.cpp)
-endif(ARGOS_BUILD_FOR STREQUAL "khiv")
+endif(ARGOS_BUILD_FOR STREQUAL "tb3")
 
 #
 # Create turtlebot3 plugin
@@ -129,10 +129,10 @@ endif(BUZZ_FOUND)
 #
 # Create battery monitor
 #
-if(ARGOS_BUILD_FOR STREQUAL "khiv")
+if(ARGOS_BUILD_FOR STREQUAL "tb3")
   add_executable(battery real_robot/battery.c)
   target_link_libraries(battery -lturtlebot3)
-endif(ARGOS_BUILD_FOR STREQUAL "khiv")
+endif(ARGOS_BUILD_FOR STREQUAL "tb3")
 
 #
 # Installation
