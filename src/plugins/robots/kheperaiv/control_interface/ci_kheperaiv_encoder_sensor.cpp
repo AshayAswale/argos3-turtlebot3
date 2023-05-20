@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_encoder_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_encoder_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "ci_kheperaiv_encoder_sensor.h"
+#include "ci_turtlebot3_encoder_sensor.h"
 
 #ifdef ARGOS_WITH_LUA
 #include <argos3/core/wrappers/lua/lua_utility.h>
@@ -15,7 +15,7 @@ namespace argos {
   /****************************************/
   /****************************************/
    
-  const CCI_KheperaIVEncoderSensor::SReading& CCI_KheperaIVEncoderSensor::GetReading() const {
+  const CCI_Turtlebot3EncoderSensor::SReading& CCI_Turtlebot3EncoderSensor::GetReading() const {
     return m_sReading;
   }
   
@@ -23,7 +23,7 @@ namespace argos {
   /****************************************/
    
 #ifdef ARGOS_WITH_LUA
-  void CCI_KheperaIVEncoderSensor::CreateLuaState(lua_State* pt_lua_state) {
+  void CCI_Turtlebot3EncoderSensor::CreateLuaState(lua_State* pt_lua_state) {
     CLuaUtility::OpenRobotStateTable (pt_lua_state, "wheels"                                              );
     CLuaUtility::StartTable          (pt_lua_state, "encoder"                                             );
     CLuaUtility::AddToTable          (pt_lua_state, "distance_left",  m_sReading.CoveredDistanceLeftWheel );
@@ -38,7 +38,7 @@ namespace argos {
   /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-  void CCI_KheperaIVEncoderSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
+  void CCI_Turtlebot3EncoderSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
     lua_getfield(pt_lua_state, -1, "wheels");
     lua_getfield(pt_lua_state, -1, "encoder");
     lua_pushnumber(pt_lua_state, m_sReading.CoveredDistanceLeftWheel);

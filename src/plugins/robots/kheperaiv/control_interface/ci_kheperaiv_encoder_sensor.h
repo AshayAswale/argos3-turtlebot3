@@ -1,27 +1,27 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_encoder_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_encoder_sensor.h>
  *
- * @brief This file provides the definition of the Khepera IV encoder sensor. It
+ * @brief This file provides the definition of the Turtlebot 3 encoder sensor. It
 
- * This file provides the definition of the Khepera IV encoder sensor. It
+ * This file provides the definition of the Turtlebot 3 encoder sensor. It
  * returns the distance covered by the wheels in the last control step.
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_ENCODER_SENSOR_H
-#define CCI_KHEPERAIV_ENCODER_SENSOR_H
+#ifndef CCI_TURTLEBOT3_ENCODER_SENSOR_H
+#define CCI_TURTLEBOT3_ENCODER_SENSOR_H
 
 /* To avoid dependency problems when including */
 namespace argos {
-   class CCI_KheperaIVEncoderSensor;
+   class CCI_Turtlebot3EncoderSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
 
 namespace argos {
 
-   class CCI_KheperaIVEncoderSensor : public CCI_Sensor {
+   class CCI_Turtlebot3EncoderSensor : public CCI_Sensor {
 
    public:
 
@@ -54,7 +54,7 @@ namespace argos {
       /**
        * Destructor
        */
-      virtual ~CCI_KheperaIVEncoderSensor() {}
+      virtual ~CCI_Turtlebot3EncoderSensor() {}
 
       /**
        * @brief Returns the reading of the encoder sensor

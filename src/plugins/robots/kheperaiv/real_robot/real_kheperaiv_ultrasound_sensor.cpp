@@ -1,17 +1,17 @@
-#include "real_kheperaiv_ultrasound_sensor.h"
+#include "real_turtlebot3_ultrasound_sensor.h"
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIVUltrasoundSensor::CRealKheperaIVUltrasoundSensor(knet_dev_t* pt_dspic) :
-   CRealKheperaIVDevice(pt_dspic) {
+CRealTurtlebot3UltrasoundSensor::CRealTurtlebot3UltrasoundSensor(knet_dev_t* pt_dspic) :
+   CRealTurtlebot3Device(pt_dspic) {
    kh4_activate_us(0x1F, GetDSPic());
 }
    
 /****************************************/
 /****************************************/
 
-CRealKheperaIVUltrasoundSensor::~CRealKheperaIVUltrasoundSensor() {
+CRealTurtlebot3UltrasoundSensor::~CRealTurtlebot3UltrasoundSensor() {
    kh4_activate_us(0, GetDSPic());
 }
 
@@ -21,7 +21,7 @@ CRealKheperaIVUltrasoundSensor::~CRealKheperaIVUltrasoundSensor() {
 #define SETREADING(ARGOSIDX, KH4IDX)                                    \
    m_tReadings[ARGOSIDX].Value = (GetBuffer()[KH4IDX*2] | GetBuffer()[KH4IDX*2+1] << 8);
 
-void CRealKheperaIVUltrasoundSensor::Do(Real f_elapsed_time) {
+void CRealTurtlebot3UltrasoundSensor::Do(Real f_elapsed_time) {
    kh4_measure_us(GetBuffer(), GetDSPic());
    SETREADING(0, 2);
    SETREADING(1, 1);

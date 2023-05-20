@@ -1,5 +1,5 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv__ground_rotzonly_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3__ground_rotzonly_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
@@ -10,7 +10,7 @@
 #include <argos3/core/simulator/entity/floor_entity.h>
 #include <argos3/plugins/simulator/entities/ground_sensor_equipped_entity.h>
 
-#include "kheperaiv_ground_rotzonly_sensor.h"
+#include "turtlebot3_ground_rotzonly_sensor.h"
 
 namespace argos {
 
@@ -22,7 +22,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CKheperaIVGroundRotZOnlySensor::CKheperaIVGroundRotZOnlySensor() :
+   CTurtlebot3GroundRotZOnlySensor::CTurtlebot3GroundRotZOnlySensor() :
       m_pcEmbodiedEntity(NULL),
       m_pcFloorEntity(NULL),
       m_pcGroundSensorEntity(NULL),
@@ -33,7 +33,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVGroundRotZOnlySensor::SetRobot(CComposableEntity& c_entity) {
+   void CTurtlebot3GroundRotZOnlySensor::SetRobot(CComposableEntity& c_entity) {
       m_pcEmbodiedEntity = &(c_entity.GetComponent<CEmbodiedEntity>("body"));
       m_pcGroundSensorEntity = &(c_entity.GetComponent<CGroundSensorEquippedEntity>("ground_sensors"));
       m_pcGroundSensorEntity->Enable();
@@ -43,14 +43,14 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVGroundRotZOnlySensor::Init(TConfigurationNode& t_tree) {
+   void CTurtlebot3GroundRotZOnlySensor::Init(TConfigurationNode& t_tree) {
       try {
-         CCI_KheperaIVGroundSensor::Init(t_tree);
+         CCI_Turtlebot3GroundSensor::Init(t_tree);
          /* Parse noise level */
          Real fNoiseLevel = 0.0f;
          GetNodeAttributeOrDefault(t_tree, "noise_level", fNoiseLevel, fNoiseLevel);
          if(fNoiseLevel < 0.0f) {
-            THROW_ARGOSEXCEPTION("Can't specify a negative value for the noise level of the KheperaIV ground sensor");
+            THROW_ARGOSEXCEPTION("Can't specify a negative value for the noise level of the Turtlebot3 ground sensor");
          }
          else if(fNoiseLevel > 0.0f) {
             m_bAddNoise = true;
@@ -60,14 +60,14 @@ namespace argos {
          m_tReadings.resize(4);
       }
       catch(CARGoSException& ex) {
-         THROW_ARGOSEXCEPTION_NESTED("Initialization error in KheperaIV rotzonly ground sensor", ex);
+         THROW_ARGOSEXCEPTION_NESTED("Initialization error in Turtlebot3 rotzonly ground sensor", ex);
       }
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVGroundRotZOnlySensor::Update() {
+   void CTurtlebot3GroundRotZOnlySensor::Update() {
       /*
        * We make the assumption that the robot is rotated only wrt to Z
        */
@@ -103,7 +103,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVGroundRotZOnlySensor::Reset() {
+   void CTurtlebot3GroundRotZOnlySensor::Reset() {
       for(UInt32 i = 0; i < GetReadings().size(); ++i) {
          m_tReadings[i].Value = 0.0f;
       }
@@ -112,13 +112,13 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_SENSOR(CKheperaIVGroundRotZOnlySensor,
-                   "kheperaiv_ground", "rot_z_only",
+   REGISTER_SENSOR(CTurtlebot3GroundRotZOnlySensor,
+                   "turtlebot3_ground", "rot_z_only",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The KheperaIV  ground sensor.",
-                   "This sensor accesses the KheperaIV  ground sensor. For a complete description\n"
-                   "of its usage, refer to the ci_kheperaiv_ground_sensor.h interface. For the XML\n"
+                   "The Turtlebot3  ground sensor.",
+                   "This sensor accesses the Turtlebot3  ground sensor. For a complete description\n"
+                   "of its usage, refer to the ci_turtlebot3_ground_sensor.h interface. For the XML\n"
                    "configuration, refer to the default ground sensor.\n",
                    "Usable"
 		  );

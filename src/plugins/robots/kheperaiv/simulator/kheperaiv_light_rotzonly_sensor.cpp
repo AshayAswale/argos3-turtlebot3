@@ -1,5 +1,5 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_light_rotzonly_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_light_rotzonly_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
@@ -10,7 +10,7 @@
 #include <argos3/plugins/simulator/entities/light_entity.h>
 #include <argos3/plugins/simulator/entities/light_sensor_equipped_entity.h>
 
-#include "kheperaiv_light_rotzonly_sensor.h"
+#include "turtlebot3_light_rotzonly_sensor.h"
 
 namespace argos {
 
@@ -50,7 +50,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CKheperaIVLightRotZOnlySensor::CKheperaIVLightRotZOnlySensor() :
+   CTurtlebot3LightRotZOnlySensor::CTurtlebot3LightRotZOnlySensor() :
       m_pcEmbodiedEntity(NULL),
       m_bShowRays(false),
       m_pcRNG(NULL),
@@ -60,7 +60,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLightRotZOnlySensor::SetRobot(CComposableEntity& c_entity) {
+   void CTurtlebot3LightRotZOnlySensor::SetRobot(CComposableEntity& c_entity) {
       try {
          m_pcEmbodiedEntity = &(c_entity.GetComponent<CEmbodiedEntity>("body"));
          m_pcControllableEntity = &(c_entity.GetComponent<CControllableEntity>("controller"));
@@ -68,14 +68,14 @@ namespace argos {
          m_pcLightEntity->Enable();
       }
       catch(CARGoSException& ex) {
-         THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the KheperaIV light default sensor", ex);
+         THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Turtlebot3 light default sensor", ex);
       }
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLightRotZOnlySensor::Init(TConfigurationNode& t_tree) {
+   void CTurtlebot3LightRotZOnlySensor::Init(TConfigurationNode& t_tree) {
       try {
          /* Show rays? */
          GetNodeAttributeOrDefault(t_tree, "show_rays", m_bShowRays, m_bShowRays);
@@ -100,19 +100,19 @@ namespace argos {
    /****************************************/
    /****************************************/
    
-   void CKheperaIVLightRotZOnlySensor::Update() {
+   void CTurtlebot3LightRotZOnlySensor::Update() {
       /* Erase readings */
       for(size_t i = 0; i < m_tReadings.size(); ++i) {
          m_tReadings[i].Value = 0.0f;
       }
-      /* Get KheperaIV orientation */
+      /* Get Turtlebot3 orientation */
       CRadians cTmp1, cTmp2, cOrientationZ;
       m_pcEmbodiedEntity->GetOriginAnchor().Orientation.ToEulerAngles(cOrientationZ, cTmp1, cTmp2);
       /* Ray used for scanning the environment for obstacles */
       CRay3 cOcclusionCheckRay;
       cOcclusionCheckRay.SetStart(m_pcEmbodiedEntity->GetOriginAnchor().Position);
       CVector3 cRobotToLight;
-      /* Buffer for the angle of the light wrt to the KheperaIV */
+      /* Buffer for the angle of the light wrt to the Turtlebot3 */
       CRadians cAngleLightWrtRobot;
       /* Buffers to contain data about the intersection */
       SEmbodiedEntityIntersectionItem sIntersection;
@@ -134,7 +134,7 @@ namespace argos {
          if(cLight.GetIntensity() > 0.0f) {
             /* Set the ray end */
             cOcclusionCheckRay.SetEnd(cLight.GetPosition());
-            /* Check occlusion between the KheperaIV and the light */
+            /* Check occlusion between the Turtlebot3 and the light */
             if(! GetClosestEmbodiedEntityIntersectedByRay(sIntersection,
                                                           cOcclusionCheckRay,
                                                           *m_pcEmbodiedEntity)) {
@@ -142,19 +142,19 @@ namespace argos {
                if(m_bShowRays) {
                   m_pcControllableEntity->AddCheckedRay(false, cOcclusionCheckRay);
                }
-               /* Get the distance between the light and the KheperaIV */
+               /* Get the distance between the light and the Turtlebot3 */
                cOcclusionCheckRay.ToVector(cRobotToLight);
                /*
                 * Linearly scale the distance with the light intensity
                 * The greater the intensity, the smaller the distance
                 */
                cRobotToLight /= cLight.GetIntensity();
-               /* Get the angle wrt to KheperaIV rotation */
+               /* Get the angle wrt to Turtlebot3 rotation */
                cAngleLightWrtRobot = cRobotToLight.GetZAngle();
                cAngleLightWrtRobot -= cOrientationZ;
                /*
-                * Find closest sensor index to point at which ray hits Khepera IV body
-                * Division says how many sensor spacings there are between first sensor and point at which ray hits kheperaiv body
+                * Find closest sensor index to point at which ray hits Turtlebot 3 body
+                * Division says how many sensor spacings there are between first sensor and point at which ray hits turtlebot3 body
                 * Increase magnitude of result of division to ensure correct rounding
                 */
                Real fIdx = cAngleLightWrtRobot / SENSOR_SPACING;
@@ -201,7 +201,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLightRotZOnlySensor::Reset() {
+   void CTurtlebot3LightRotZOnlySensor::Reset() {
       for(UInt32 i = 0; i < GetReadings().size(); ++i) {
          m_tReadings[i].Value = 0.0f;
       }
@@ -210,11 +210,11 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_SENSOR(CKheperaIVLightRotZOnlySensor,
-                   "kheperaiv_light", "rot_z_only",
+   REGISTER_SENSOR(CTurtlebot3LightRotZOnlySensor,
+                   "turtlebot3_light", "rot_z_only",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The KheperaIV light sensor (optimized for 2D).",
+                   "The Turtlebot3 light sensor (optimized for 2D).",
                    "This sensor accesses a set of light sensors. The sensors all return a value\n"
                    "between 0 and 1, where 0 means nothing within range and 1 means the perceived\n"
                    "light saturates the sensor. Values between 0 and 1 depend on the distance of\n"
@@ -226,7 +226,7 @@ namespace argos {
                    "entity. In case multiple lights are present in the environment, each sensor\n"
                    "reading is calculated as the sum of the individual readings due to each light.\n"
                    "In other words, light wave interference is not taken into account. In\n"
-                   "controllers, you must include the ci_kheperaiv_light_sensor.h header.\n\n"
+                   "controllers, you must include the ci_turtlebot3_light_sensor.h header.\n\n"
                    "REQUIRED XML CONFIGURATION\n\n"
                    "  <controllers>\n"
                    "    ...\n"
@@ -234,7 +234,7 @@ namespace argos {
                    "      ...\n"
                    "      <sensors>\n"
                    "        ...\n"
-                   "        <kheperaiv_light implementation=\"rot_z_only\" />\n"
+                   "        <turtlebot3_light implementation=\"rot_z_only\" />\n"
                    "        ...\n"
                    "      </sensors>\n"
                    "      ...\n"
@@ -255,7 +255,7 @@ namespace argos {
                    "      ...\n"
                    "      <sensors>\n"
                    "        ...\n"
-                   "        <kheperaiv_light implementation=\"rot_z_only\"\n"
+                   "        <turtlebot3_light implementation=\"rot_z_only\"\n"
                    "                         show_rays=\"true\" />\n"
                    "        ...\n"
                    "      </sensors>\n"
@@ -273,7 +273,7 @@ namespace argos {
                    "      ...\n"
                    "      <sensors>\n"
                    "        ...\n"
-                   "        <kheperaiv_light implementation=\"rot_z_only\"\n"
+                   "        <turtlebot3_light implementation=\"rot_z_only\"\n"
                    "                         noise_level=\"0.1\" />\n"
                    "        ...\n"
                    "      </sensors>\n"

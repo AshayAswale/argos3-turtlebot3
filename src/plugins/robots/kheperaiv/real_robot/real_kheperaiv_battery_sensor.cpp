@@ -1,22 +1,22 @@
-#include "real_kheperaiv_battery_sensor.h"
+#include "real_turtlebot3_battery_sensor.h"
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIVBatterySensor::CRealKheperaIVBatterySensor(knet_dev_t* pt_dspic) :
-   CRealKheperaIVDevice(pt_dspic) {
+CRealTurtlebot3BatterySensor::CRealTurtlebot3BatterySensor(knet_dev_t* pt_dspic) :
+   CRealTurtlebot3Device(pt_dspic) {
 }
    
 /****************************************/
 /****************************************/
 
-CRealKheperaIVBatterySensor::~CRealKheperaIVBatterySensor() {
+CRealTurtlebot3BatterySensor::~CRealTurtlebot3BatterySensor() {
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVBatterySensor::Do(Real f_elapsed_time) {
+void CRealTurtlebot3BatterySensor::Do(Real f_elapsed_time) {
    kh4_battery_status(GetBuffer(), GetDSPic());
    m_sReading.AvailableCharge = GetBuffer()[3] / 100.0;
    m_sReading.TimeLeft = -1.0; // TODO

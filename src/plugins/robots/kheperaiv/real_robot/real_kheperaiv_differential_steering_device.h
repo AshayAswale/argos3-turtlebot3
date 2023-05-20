@@ -1,17 +1,17 @@
-#ifndef REAL_KHEPERAIV_DIFFERENTIAL_STEERING_DEVICE_H
-#define REAL_KHEPERAIV_DIFFERENTIAL_STEERING_DEVICE_H
+#ifndef REAL_TURTLEBOT3_DIFFERENTIAL_STEERING_DEVICE_H
+#define REAL_TURTLEBOT3_DIFFERENTIAL_STEERING_DEVICE_H
 
 #include <argos3/core/utility/datatypes/datatypes.h>
 
 using namespace argos;
 
-class CRealKheperaIVDifferentialSteeringDevice {
+class CRealTurtlebot3DifferentialSteeringDevice {
 
 public:
 
-   static CRealKheperaIVDifferentialSteeringDevice* GetInstance();
+   static CRealTurtlebot3DifferentialSteeringDevice* GetInstance();
 
-   ~CRealKheperaIVDifferentialSteeringDevice() {}
+   ~CRealTurtlebot3DifferentialSteeringDevice() {}
 
    inline void SetVelocity(Real* f_velocity) {
       m_fVelocityLeft = f_velocity[0];
@@ -28,11 +28,11 @@ public:
 
 private:
 
-   CRealKheperaIVDifferentialSteeringDevice();
+   CRealTurtlebot3DifferentialSteeringDevice();
    
 private:
 
-   static CRealKheperaIVDifferentialSteeringDevice* m_pcInstance;
+   static CRealTurtlebot3DifferentialSteeringDevice* m_pcInstance;
    Real m_fVelocityLeft;
    Real m_fVelocityRight;
 };

@@ -1,40 +1,40 @@
-#include "real_kheperaiv.h"
-#include "real_kheperaiv_differential_steering_actuator.h"
-#include "real_kheperaiv_leds_actuator.h"
-#include "real_kheperaiv_battery_sensor.h"
-#include "real_kheperaiv_camera_sensor.h"
-#include "real_kheperaiv_encoder_sensor.h"
-#include "real_kheperaiv_ground_sensor.h"
-#include "real_kheperaiv_lidar_sensor.h"
-#include "real_kheperaiv_proximity_sensor.h"
-#include "real_kheperaiv_ultrasound_sensor.h"
+#include "real_turtlebot3.h"
+#include "real_turtlebot3_differential_steering_actuator.h"
+#include "real_turtlebot3_leds_actuator.h"
+#include "real_turtlebot3_battery_sensor.h"
+#include "real_turtlebot3_camera_sensor.h"
+#include "real_turtlebot3_encoder_sensor.h"
+#include "real_turtlebot3_ground_sensor.h"
+#include "real_turtlebot3_lidar_sensor.h"
+#include "real_turtlebot3_proximity_sensor.h"
+#include "real_turtlebot3_ultrasound_sensor.h"
 #include <argos3/core/utility/logging/argos_log.h>
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIV::CRealKheperaIV() :
+CRealTurtlebot3::CRealTurtlebot3() :
    m_ptDSPic(NULL) {
 }
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIV::~CRealKheperaIV() {
+CRealTurtlebot3::~CRealTurtlebot3() {
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::InitRobot() {
-   /* Initialize Khepera */
+void CRealTurtlebot3::InitRobot() {
+   /* Initialize Turtlebot */
    if(kh4_init(0,NULL) != 0) {
-      THROW_ARGOSEXCEPTION("Error initializing the Khepera IV subsystem (kh4_init)");
+      THROW_ARGOSEXCEPTION("Error initializing the Turtlebot 3 subsystem (kh4_init)");
    }
    /* Open robot socket and store the handle in its pointer */
-   m_ptDSPic = knet_open("Khepera4:dsPic", KNET_BUS_I2C, 0, NULL);
+   m_ptDSPic = knet_open("Turtlebot3:dsPic", KNET_BUS_I2C, 0, NULL);
    if(m_ptDSPic == NULL) {
-      THROW_ARGOSEXCEPTION("Error initializing communication with Khepera IV dsPic (knet_open)");
+      THROW_ARGOSEXCEPTION("Error initializing communication with Turtlebot 3 dsPic (knet_open)");
    }
    /* Make sure to start from a clean state */
    /* It's weird to call Destroy() here, but all it does is making
@@ -45,7 +45,7 @@ void CRealKheperaIV::InitRobot() {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Destroy() {
+void CRealTurtlebot3::Destroy() {
    /* Stop wheels */
    kh4_set_speed(0, 0, m_ptDSPic);
    kh4_SetMode(kh4RegIdle, m_ptDSPic );
@@ -67,10 +67,10 @@ void CRealKheperaIV::Destroy() {
       return pcAct;							\
    }
 
-CCI_Actuator* CRealKheperaIV::MakeActuator(const std::string& str_name) {
-   MAKE_ACTUATOR(CRealKheperaIVDifferentialSteeringActuator,
+CCI_Actuator* CRealTurtlebot3::MakeActuator(const std::string& str_name) {
+   MAKE_ACTUATOR(CRealTurtlebot3DifferentialSteeringActuator,
                  "differential_steering");
-   MAKE_ACTUATOR(CRealKheperaIVLEDsActuator,
+   MAKE_ACTUATOR(CRealTurtlebot3LEDsActuator,
                  "leds");
    return NULL;
 }
@@ -87,28 +87,28 @@ CCI_Actuator* CRealKheperaIV::MakeActuator(const std::string& str_name) {
       return pcSens;							\
    }
 
-CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
-   MAKE_SENSOR(CRealKheperaIVBatterySensor,
-               "kheperaiv_battery");
-   MAKE_SENSOR(CRealKheperaIVCameraSensor,
+CCI_Sensor* CRealTurtlebot3::MakeSensor(const std::string& str_name) {
+   MAKE_SENSOR(CRealTurtlebot3BatterySensor,
+               "turtlebot3_battery");
+   MAKE_SENSOR(CRealTurtlebot3CameraSensor,
                "camera");
-   MAKE_SENSOR(CRealKheperaIVEncoderSensor,
+   MAKE_SENSOR(CRealTurtlebot3EncoderSensor,
 	       "differential_steering");
-   MAKE_SENSOR(CRealKheperaIVGroundSensor,
-               "kheperaiv_ground");
-   MAKE_SENSOR(CRealKheperaIVLIDARSensor,
-               "kheperaiv_lidar");
-   MAKE_SENSOR(CRealKheperaIVProximitySensor,
-               "kheperaiv_proximity");
-   MAKE_SENSOR(CRealKheperaIVUltrasoundSensor,
-               "kheperaiv_ultrasound");
+   MAKE_SENSOR(CRealTurtlebot3GroundSensor,
+               "turtlebot3_ground");
+   MAKE_SENSOR(CRealTurtlebot3LIDARSensor,
+               "turtlebot3_lidar");
+   MAKE_SENSOR(CRealTurtlebot3ProximitySensor,
+               "turtlebot3_proximity");
+   MAKE_SENSOR(CRealTurtlebot3UltrasoundSensor,
+               "turtlebot3_ultrasound");
    return NULL;
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Sense(Real f_elapsed_time) {
+void CRealTurtlebot3::Sense(Real f_elapsed_time) {
    for(size_t i = 0; i < m_vecSensors.size(); ++i) {
       m_vecSensors[i]->Do(f_elapsed_time);
    }
@@ -117,7 +117,7 @@ void CRealKheperaIV::Sense(Real f_elapsed_time) {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Act(Real f_elapsed_time) {
+void CRealTurtlebot3::Act(Real f_elapsed_time) {
    for(size_t i = 0; i < m_vecActuators.size(); ++i) {
       m_vecActuators[i]->Do(f_elapsed_time);
    }

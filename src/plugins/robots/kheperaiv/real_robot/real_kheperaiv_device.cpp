@@ -1,14 +1,14 @@
-#include "real_kheperaiv_device.h"
+#include "real_turtlebot3_device.h"
 
 /****************************************/
 /****************************************/
 
-char CRealKheperaIVDevice::m_pchBuffer[100];
+char CRealTurtlebot3Device::m_pchBuffer[100];
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIVDevice::CRealKheperaIVDevice(knet_dev_t* pt_dspic) :
+CRealTurtlebot3Device::CRealTurtlebot3Device(knet_dev_t* pt_dspic) :
    m_ptDSPic(pt_dspic) {
 }
 

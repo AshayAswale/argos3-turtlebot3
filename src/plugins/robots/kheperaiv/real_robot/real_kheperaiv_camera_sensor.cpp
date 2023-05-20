@@ -1,9 +1,9 @@
-#include "real_kheperaiv_camera_sensor.h"
+#include "real_turtlebot3_camera_sensor.h"
 #include <argos3/core/utility/logging/argos_log.h>
 
-using SBlob        = CCI_KheperaIVCameraSensor::SBlob;
-using TBlobs       = CCI_KheperaIVCameraSensor::TBlobs;
-using TBlobFilters = CRealKheperaIVCameraSensor::TBlobFilters;
+using SBlob        = CCI_Turtlebot3CameraSensor::SBlob;
+using TBlobs       = CCI_Turtlebot3CameraSensor::TBlobs;
+using TBlobFilters = CRealTurtlebot3CameraSensor::TBlobFilters;
 
 /****************************************/
 /****************************************/
@@ -218,21 +218,21 @@ static void* CameraThread(void* pvoid_params) {
 /****************************************/
 /****************************************/
 
-CRealKheperaIVCameraSensor::CRealKheperaIVCameraSensor(knet_dev_t* pt_dspic) :
-   CRealKheperaIVDevice(NULL),
+CRealTurtlebot3CameraSensor::CRealTurtlebot3CameraSensor(knet_dev_t* pt_dspic) :
+   CRealTurtlebot3Device(NULL),
    m_bNewBlobReadings(false) {
 }
    
 /****************************************/
 /****************************************/
 
-CRealKheperaIVCameraSensor::~CRealKheperaIVCameraSensor() {
+CRealTurtlebot3CameraSensor::~CRealTurtlebot3CameraSensor() {
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVCameraSensor::Init(TConfigurationNode& t_node) {
+void CRealTurtlebot3CameraSensor::Init(TConfigurationNode& t_node) {
    try {
       /* Parse XML */
       m_unWidth = 640;
@@ -282,7 +282,7 @@ void CRealKheperaIVCameraSensor::Init(TConfigurationNode& t_node) {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVCameraSensor::Destroy() {
+void CRealTurtlebot3CameraSensor::Destroy() {
    /* Release mutex */
    pthread_mutex_unlock(&m_tBlobReadyMutex);
    /* Stop worker thread */
@@ -300,14 +300,14 @@ void CRealKheperaIVCameraSensor::Destroy() {
 /****************************************/
 /****************************************/
 
-const unsigned char* CRealKheperaIVCameraSensor::GetPixels() const {
+const unsigned char* CRealTurtlebot3CameraSensor::GetPixels() const {
    return m_pchImgBuffer;
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVCameraSensor::Do(Real f_elapsed_time) {
+void CRealTurtlebot3CameraSensor::Do(Real f_elapsed_time) {
    /* Take latest reading from worker thread */
    pthread_mutex_trylock(&m_tBlobReadyMutex);
    if(m_bNewBlobReadings) {
@@ -320,7 +320,7 @@ void CRealKheperaIVCameraSensor::Do(Real f_elapsed_time) {
 /****************************************/
 /****************************************/
 
-bool CRealKheperaIVCameraSensor::SBlobFilter::Match(const unsigned char* pch_hsv) {
+bool CRealTurtlebot3CameraSensor::SBlobFilter::Match(const unsigned char* pch_hsv) {
    return
       Hue.WithinMinBoundIncludedMaxBoundIncluded(pch_hsv[0]) &&
       Saturation.WithinMinBoundIncludedMaxBoundIncluded(pch_hsv[1]) &&

@@ -1,32 +1,32 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/dynamics2d_kheperaiv_model.h>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/dynamics2d_turtlebot3_model.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef DYNAMICS2D_KHEPERAIV_MODEL_H
-#define DYNAMICS2D_KHEPERAIV_MODEL_H
+#ifndef DYNAMICS2D_TURTLEBOT3_MODEL_H
+#define DYNAMICS2D_TURTLEBOT3_MODEL_H
 
 namespace argos {
    class CDynamics2DDifferentialSteeringControl;
    class CDynamics2DGripper;
    class CDynamics2DGrippable;
-   class CDynamics2DKheperaIVModel;
+   class CDynamics2DTurtlebot3Model;
 }
 
 #include <argos3/plugins/simulator/physics_engines/dynamics2d/dynamics2d_single_body_object_model.h>
 #include <argos3/plugins/simulator/physics_engines/dynamics2d/dynamics2d_differentialsteering_control.h>
-#include <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_entity.h>
+#include <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_entity.h>
 
 namespace argos {
 
-   class CDynamics2DKheperaIVModel : public CDynamics2DSingleBodyObjectModel {
+   class CDynamics2DTurtlebot3Model : public CDynamics2DSingleBodyObjectModel {
 
    public:
 
-      CDynamics2DKheperaIVModel(CDynamics2DEngine& c_engine,
-                              CKheperaIVEntity& c_entity);
-      virtual ~CDynamics2DKheperaIVModel();
+      CDynamics2DTurtlebot3Model(CDynamics2DEngine& c_engine,
+                              CTurtlebot3Entity& c_entity);
+      virtual ~CDynamics2DTurtlebot3Model();
 
       virtual void Reset();
 
@@ -34,7 +34,7 @@ namespace argos {
       
    private:
 
-      CKheperaIVEntity& m_cKheperaIVEntity;
+      CTurtlebot3Entity& m_cTurtlebot3Entity;
       CWheeledEntity& m_cWheeledEntity;
 
       CDynamics2DDifferentialSteeringControl m_cDiffSteering;

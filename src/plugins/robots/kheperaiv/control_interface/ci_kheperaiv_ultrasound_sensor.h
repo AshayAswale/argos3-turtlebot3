@@ -1,9 +1,9 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ultrasound_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_ultrasound_sensor.h>
  *
- * @brief This file provides the definition of the Khepera IV ultrasound sensor.
+ * @brief This file provides the definition of the Turtlebot 3 ultrasound sensor.
  *
- * This file provides the definition of the Khepera IV ultrasound sensor.
+ * This file provides the definition of the Turtlebot 3 ultrasound sensor.
  * The sensors are evenly spaced on a ring around the base of the robot.
  * The readings are normalized between 0 and 1, and are in the following
  * order (seeing the robot from TOP, the camera is the FRONT):
@@ -21,11 +21,11 @@
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_ULTRASOUND_SENSOR_H
-#define CCI_KHEPERAIV_ULTRASOUND_SENSOR_H
+#ifndef CCI_TURTLEBOT3_ULTRASOUND_SENSOR_H
+#define CCI_TURTLEBOT3_ULTRASOUND_SENSOR_H
 
 namespace argos {
-   class CCI_KheperaIVUltrasoundSensor;
+   class CCI_Turtlebot3UltrasoundSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -33,7 +33,7 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_KheperaIVUltrasoundSensor : public CCI_Sensor {
+   class CCI_Turtlebot3UltrasoundSensor : public CCI_Sensor {
 
    public:
 
@@ -57,12 +57,12 @@ namespace argos {
       /**
        * Class constructor
        */
-      CCI_KheperaIVUltrasoundSensor();
+      CCI_Turtlebot3UltrasoundSensor();
 
       /**
        * Class destructor
        */
-      virtual ~CCI_KheperaIVUltrasoundSensor() {}
+      virtual ~CCI_Turtlebot3UltrasoundSensor() {}
 
       /**
        * Returns the readings of this sensor
@@ -81,8 +81,8 @@ namespace argos {
 
    };
 
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVUltrasoundSensor::SReading& s_reading);
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVUltrasoundSensor::TReadings& t_readings);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3UltrasoundSensor::SReading& s_reading);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3UltrasoundSensor::TReadings& t_readings);
 
 }
 

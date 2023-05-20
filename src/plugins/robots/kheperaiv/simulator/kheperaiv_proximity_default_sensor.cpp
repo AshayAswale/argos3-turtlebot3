@@ -1,5 +1,5 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_proximity_default_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_proximity_default_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
@@ -9,14 +9,14 @@
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/plugins/simulator/entities/proximity_sensor_equipped_entity.h>
 
-#include "kheperaiv_proximity_default_sensor.h"
+#include "turtlebot3_proximity_default_sensor.h"
 
 namespace argos {
 
    /****************************************/
    /****************************************/
 
-   class CKheperaIVProximitySensorImpl : public CProximityDefaultSensor {
+   class CTurtlebot3ProximitySensorImpl : public CProximityDefaultSensor {
 
    public:
 
@@ -28,7 +28,7 @@ namespace argos {
             m_pcProximityEntity->Enable();
          }
          catch(CARGoSException& ex) {
-            THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Khepera IV proximity default sensor", ex);
+            THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Turtlebot 3 proximity default sensor", ex);
          }
       }
 
@@ -49,39 +49,39 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CKheperaIVProximityDefaultSensor::CKheperaIVProximityDefaultSensor() :
-      m_pcProximityImpl(new CKheperaIVProximitySensorImpl()) {}
+   CTurtlebot3ProximityDefaultSensor::CTurtlebot3ProximityDefaultSensor() :
+      m_pcProximityImpl(new CTurtlebot3ProximitySensorImpl()) {}
 
    /****************************************/
    /****************************************/
 
-   CKheperaIVProximityDefaultSensor::~CKheperaIVProximityDefaultSensor() {
+   CTurtlebot3ProximityDefaultSensor::~CTurtlebot3ProximityDefaultSensor() {
       delete m_pcProximityImpl;
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVProximityDefaultSensor::SetRobot(CComposableEntity& c_entity) {
+   void CTurtlebot3ProximityDefaultSensor::SetRobot(CComposableEntity& c_entity) {
       try {
          m_pcProximityImpl->SetRobot(c_entity);
       }
       catch(CARGoSException& ex) {
-         THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Khepera IV proximity default sensor", ex);
+         THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Turtlebot 3 proximity default sensor", ex);
       }
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVProximityDefaultSensor::Init(TConfigurationNode& t_tree) {
+   void CTurtlebot3ProximityDefaultSensor::Init(TConfigurationNode& t_tree) {
       m_pcProximityImpl->Init(t_tree);
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVProximityDefaultSensor::Update() {
+   void CTurtlebot3ProximityDefaultSensor::Update() {
       m_pcProximityImpl->Update();
       for(size_t i = 0; i < m_pcProximityImpl->GetReadings().size(); ++i) {
          m_tReadings[i].Value = m_pcProximityImpl->GetReadings()[i];
@@ -91,20 +91,20 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVProximityDefaultSensor::Reset() {
+   void CTurtlebot3ProximityDefaultSensor::Reset() {
       m_pcProximityImpl->Reset();
    }
 
    /****************************************/
    /****************************************/
 
-   REGISTER_SENSOR(CKheperaIVProximityDefaultSensor,
-                   "kheperaiv_proximity", "default",
+   REGISTER_SENSOR(CTurtlebot3ProximityDefaultSensor,
+                   "turtlebot3_proximity", "default",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The Khepera IV proximity sensor.",
-                   "This sensor accesses the Khepera IV proximity sensor. For a complete description\n"
-                   "of its usage, refer to the ci_kheperaiv_proximity_sensor.h interface. For the XML\n"
+                   "The Turtlebot 3 proximity sensor.",
+                   "This sensor accesses the Turtlebot 3 proximity sensor. For a complete description\n"
+                   "of its usage, refer to the ci_turtlebot3_proximity_sensor.h interface. For the XML\n"
                    "configuration, refer to the default proximity sensor.\n",
                    "Usable"
 		  );

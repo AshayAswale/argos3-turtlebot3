@@ -1,10 +1,10 @@
-#include "buzz_controller_kheperaiv.h"
+#include "buzz_controller_turtlebot3.h"
 #include <argos3/core/utility/logging/argos_log.h>
 
 /****************************************/
 /****************************************/
 
-CBuzzControllerKheperaIV::SWheelTurningParams::SWheelTurningParams() :
+CBuzzControllerTurtlebot3::SWheelTurningParams::SWheelTurningParams() :
    TurningMechanism(NO_TURN),
    HardTurnOnAngleThreshold(ToRadians(CDegrees(90.0))),
    SoftTurnOnAngleThreshold(ToRadians(CDegrees(70.0))),
@@ -16,7 +16,7 @@ CBuzzControllerKheperaIV::SWheelTurningParams::SWheelTurningParams() :
 /****************************************/
 /****************************************/
 
-void CBuzzControllerKheperaIV::SWheelTurningParams::Init(TConfigurationNode& t_node) {
+void CBuzzControllerTurtlebot3::SWheelTurningParams::Init(TConfigurationNode& t_node) {
    try {
       TurningMechanism = NO_TURN;
       CDegrees cAngle;
@@ -70,7 +70,7 @@ static int BuzzGoToC(buzzvm_t vm) {
    buzzvm_pushs(vm, buzzvm_string_register(vm, "controller", 1));
    buzzvm_gload(vm);
    /* Call function */
-   reinterpret_cast<CBuzzControllerKheperaIV*>(buzzvm_stack_at(vm, 1)->u.value)->SetWheelSpeedsFromVector(cDir);
+   reinterpret_cast<CBuzzControllerTurtlebot3*>(buzzvm_stack_at(vm, 1)->u.value)->SetWheelSpeedsFromVector(cDir);
    return buzzvm_ret0(vm);
 }
 
@@ -112,7 +112,7 @@ static int BuzzGoToP(buzzvm_t vm) {
    buzzvm_pushs(vm, buzzvm_string_register(vm, "controller", 1));
    buzzvm_gload(vm);
    /* Call function */
-   reinterpret_cast<CBuzzControllerKheperaIV*>(buzzvm_stack_at(vm, 1)->u.value)->SetWheelSpeedsFromVector(cDir);
+   reinterpret_cast<CBuzzControllerTurtlebot3*>(buzzvm_stack_at(vm, 1)->u.value)->SetWheelSpeedsFromVector(cDir);
    return buzzvm_ret0(vm);
 }
 
@@ -130,7 +130,7 @@ int BuzzSetWheels(buzzvm_t vm) {
    buzzvm_pushs(vm, buzzvm_string_register(vm, "controller", 1));
    buzzvm_gload(vm);
    /* Call function */
-   reinterpret_cast<CBuzzControllerKheperaIV*>(
+   reinterpret_cast<CBuzzControllerTurtlebot3*>(
       buzzvm_stack_at(vm, 1)->u.value)->
       SetWheels(buzzvm_stack_at(vm, 3)->f.value, /* Left speed */
                 buzzvm_stack_at(vm, 2)->f.value  /* Right speed */
@@ -158,14 +158,14 @@ int BuzzSetLEDs(buzzvm_t vm) {
    buzzvm_pushs(vm, buzzvm_string_register(vm, "controller", 1));
    buzzvm_gload(vm);
    /* Call function */
-   reinterpret_cast<CBuzzControllerKheperaIV*>(buzzvm_stack_at(vm, 1)->u.value)->SetLEDs(cColor);
+   reinterpret_cast<CBuzzControllerTurtlebot3*>(buzzvm_stack_at(vm, 1)->u.value)->SetLEDs(cColor);
    return buzzvm_ret0(vm);
 }
 
 /****************************************/
 /****************************************/
 
-CBuzzControllerKheperaIV::CBuzzControllerKheperaIV() :
+CBuzzControllerTurtlebot3::CBuzzControllerTurtlebot3() :
    m_pcWheels(NULL),
    m_pcLEDs(NULL),
    m_pcGround(NULL),
@@ -178,13 +178,13 @@ CBuzzControllerKheperaIV::CBuzzControllerKheperaIV() :
 /****************************************/
 /****************************************/
 
-CBuzzControllerKheperaIV::~CBuzzControllerKheperaIV() {
+CBuzzControllerTurtlebot3::~CBuzzControllerTurtlebot3() {
 }
 
 /****************************************/
 /****************************************/
 
-void CBuzzControllerKheperaIV::Init(TConfigurationNode& t_node) {
+void CBuzzControllerTurtlebot3::Init(TConfigurationNode& t_node) {
    try {
       /* Get pointers to devices */
       try {
@@ -197,37 +197,37 @@ void CBuzzControllerKheperaIV::Init(TConfigurationNode& t_node) {
       }
       catch(CARGoSException& ex) {}
       try {
-         m_pcGround = GetSensor<CCI_KheperaIVGroundSensor>("kheperaiv_ground");
+         m_pcGround = GetSensor<CCI_Turtlebot3GroundSensor>("turtlebot3_ground");
       }
       catch(CARGoSException& ex) {}
       try {
-         m_pcProximity = GetSensor<CCI_KheperaIVProximitySensor>("kheperaiv_proximity");
+         m_pcProximity = GetSensor<CCI_Turtlebot3ProximitySensor>("turtlebot3_proximity");
       }
       catch(CARGoSException& ex) {}
       try {
-         m_pcLight = GetSensor<CCI_KheperaIVLightSensor>("kheperaiv_light");
+         m_pcLight = GetSensor<CCI_Turtlebot3LightSensor>("turtlebot3_light");
       }
       catch(CARGoSException& ex) {}
       try {
-         m_pcUltrasound = GetSensor<CCI_KheperaIVUltrasoundSensor>("kheperaiv_ultrasound");
+         m_pcUltrasound = GetSensor<CCI_Turtlebot3UltrasoundSensor>("turtlebot3_ultrasound");
       }
       catch(CARGoSException& ex) {}
       try {
-         m_pcLIDAR = GetSensor<CCI_KheperaIVLIDARSensor>("kheperaiv_lidar");
+         m_pcLIDAR = GetSensor<CCI_Turtlebot3LIDARSensor>("turtlebot3_lidar");
       }
       catch(CARGoSException& ex) {}
       /* Initialize the rest */
       CBuzzController::Init(t_node);
    }
    catch(CARGoSException& ex) {
-      THROW_ARGOSEXCEPTION_NESTED("Error initializing the Buzz controller for the Khepera IV", ex);
+      THROW_ARGOSEXCEPTION_NESTED("Error initializing the Buzz controller for the Turtlebot 3", ex);
    }
 }
 
 /****************************************/
 /****************************************/
 
-void CBuzzControllerKheperaIV::UpdateSensors() {
+void CBuzzControllerTurtlebot3::UpdateSensors() {
    /*
     * Update generic sensors
     */
@@ -242,7 +242,7 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
       buzzobj_t tGrndTable = buzzvm_stack_at(m_tBuzzVM, 1);
       buzzvm_gstore(m_tBuzzVM);
       /* Get ground readings */
-      const CCI_KheperaIVGroundSensor::TReadings& tGrndReads = m_pcGround->GetReadings();
+      const CCI_Turtlebot3GroundSensor::TReadings& tGrndReads = m_pcGround->GetReadings();
       /* Fill into the ground table */
       buzzobj_t tGrndRead;
       for(size_t i = 0; i < tGrndReads.size(); ++i) {
@@ -280,7 +280,7 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
       buzzobj_t tProxTable = buzzvm_stack_at(m_tBuzzVM, 1);
       buzzvm_gstore(m_tBuzzVM);
       /* Get proximity readings */
-      const CCI_KheperaIVProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
+      const CCI_Turtlebot3ProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
       /* Fill into the proximity table */
       buzzobj_t tProxRead;
       for(size_t i = 0; i < tProxReads.size(); ++i) {
@@ -303,7 +303,7 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
       buzzobj_t tLightTable = buzzvm_stack_at(m_tBuzzVM, 1);
       buzzvm_gstore(m_tBuzzVM);
       /* Get proximity readings */
-      const CCI_KheperaIVLightSensor::TReadings& tLightReads = m_pcLight->GetReadings();
+      const CCI_Turtlebot3LightSensor::TReadings& tLightReads = m_pcLight->GetReadings();
       /* Fill into the proximity table */
       buzzobj_t tLightRead;
       for(size_t i = 0; i < tLightReads.size(); ++i) {
@@ -326,7 +326,7 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
       buzzobj_t tUSTable = buzzvm_stack_at(m_tBuzzVM, 1);
       buzzvm_gstore(m_tBuzzVM);
       /* Get ultrasound readings */
-      const CCI_KheperaIVUltrasoundSensor::TReadings& tUSReads = m_pcUltrasound->GetReadings();
+      const CCI_Turtlebot3UltrasoundSensor::TReadings& tUSReads = m_pcUltrasound->GetReadings();
       /* Fill into the ultrasound table */
       buzzobj_t tUSRead;
       for(size_t i = 0; i < tUSReads.size(); ++i) {
@@ -359,7 +359,7 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
 /****************************************/
 /****************************************/
 
-void CBuzzControllerKheperaIV::SetWheelSpeedsFromVector(const CVector2& c_heading) {
+void CBuzzControllerTurtlebot3::SetWheelSpeedsFromVector(const CVector2& c_heading) {
    /* Get the heading angle */
    CRadians cHeadingAngle = c_heading.Angle().SignedNormalize();
    /* Get the length of the heading vector */
@@ -430,7 +430,7 @@ void CBuzzControllerKheperaIV::SetWheelSpeedsFromVector(const CVector2& c_headin
 /****************************************/
 /****************************************/
 
-void CBuzzControllerKheperaIV::SetWheels(Real f_left_speed,
+void CBuzzControllerTurtlebot3::SetWheels(Real f_left_speed,
                                          Real f_right_speed) {
    m_pcWheels->SetLinearVelocity(f_left_speed,
                                  f_right_speed);
@@ -439,14 +439,14 @@ void CBuzzControllerKheperaIV::SetWheels(Real f_left_speed,
 /****************************************/
 /****************************************/
 
-void CBuzzControllerKheperaIV::SetLEDs(const CColor& c_color) {
+void CBuzzControllerTurtlebot3::SetLEDs(const CColor& c_color) {
    m_pcLEDs->SetAllColors(c_color);
 }
 
 /****************************************/
 /****************************************/
 
-buzzvm_state CBuzzControllerKheperaIV::RegisterFunctions() {
+buzzvm_state CBuzzControllerTurtlebot3::RegisterFunctions() {
    /* Register base functions */
    CBuzzController::RegisterFunctions();
    if(m_pcWheels) {
@@ -478,10 +478,10 @@ buzzvm_state CBuzzControllerKheperaIV::RegisterFunctions() {
 /****************************************/
 /****************************************/
 
-REGISTER_CONTROLLER(CBuzzControllerKheperaIV, "buzz_controller_kheperaiv");
+REGISTER_CONTROLLER(CBuzzControllerTurtlebot3, "buzz_controller_turtlebot3");
 
 #ifdef ARGOS_DYNAMIC_LIBRARY_LOADING
-#include <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_entity.h>
-REGISTER_BUZZ_ROBOT(CKheperaIVEntity);
+#include <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_entity.h>
+REGISTER_BUZZ_ROBOT(CTurtlebot3Entity);
 #endif
 

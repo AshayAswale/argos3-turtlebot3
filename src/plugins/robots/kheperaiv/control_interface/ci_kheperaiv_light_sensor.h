@@ -1,9 +1,9 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_light_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_light_sensor.h>
  *
- * @brief This file provides the definition of the Khepera IV light sensor.
+ * @brief This file provides the definition of the Turtlebot 3 light sensor.
  *
- * This file provides the definition of the Khepera IV light sensor.
+ * This file provides the definition of the Turtlebot 3 light sensor.
  * The sensors are evenly spaced on a ring around the base of the robot.
  * The readings are normalized between 0 and 1, and are in the following
  * order (seeing the robot from TOP, the camera is the FRONT):
@@ -21,11 +21,11 @@
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_LIGHT_SENSOR_H
-#define CCI_KHEPERAIV_LIGHT_SENSOR_H
+#ifndef CCI_TURTLEBOT3_LIGHT_SENSOR_H
+#define CCI_TURTLEBOT3_LIGHT_SENSOR_H
 
 namespace argos {
-   class CCI_KheperaIVLightSensor;
+   class CCI_Turtlebot3LightSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -34,7 +34,7 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_KheperaIVLightSensor : public CCI_Sensor {
+   class CCI_Turtlebot3LightSensor : public CCI_Sensor {
 
    public:
 
@@ -59,8 +59,8 @@ namespace argos {
 
    public:
 
-      CCI_KheperaIVLightSensor();
-      virtual ~CCI_KheperaIVLightSensor() {}
+      CCI_Turtlebot3LightSensor();
+      virtual ~CCI_Turtlebot3LightSensor() {}
 
       /**
        * Returns the readings of this sensor
@@ -78,8 +78,8 @@ namespace argos {
       TReadings m_tReadings;
    };
 
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVLightSensor::SReading& s_reading);
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVLightSensor::TReadings& t_readings);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3LightSensor::SReading& s_reading);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3LightSensor::TReadings& t_readings);
 
 }
 

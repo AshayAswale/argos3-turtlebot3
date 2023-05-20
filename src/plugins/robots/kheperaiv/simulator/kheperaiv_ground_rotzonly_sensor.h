@@ -1,22 +1,22 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv__ground_rotzonly_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3__ground_rotzonly_sensor.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef KHEPERAIV__GROUND_ROTZONLY_SENSOR_H
-#define KHEPERAIV__GROUND_ROTZONLY_SENSOR_H
+#ifndef TURTLEBOT3__GROUND_ROTZONLY_SENSOR_H
+#define TURTLEBOT3__GROUND_ROTZONLY_SENSOR_H
 
 #include <string>
 #include <map>
 
 namespace argos {
-   class CKheperaIVGroundRotZOnlySensor;
+   class CTurtlebot3GroundRotZOnlySensor;
    class CGroundSensorEquippedEntity;
    class CFloorEntity;
 }
 
-#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ground_sensor.h>
+#include <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_ground_sensor.h>
 #include <argos3/core/utility/math/range.h>
 #include <argos3/core/utility/math/rng.h>
 #include <argos3/core/simulator/space/space.h>
@@ -24,14 +24,14 @@ namespace argos {
 
 namespace argos {
 
-   class CKheperaIVGroundRotZOnlySensor : public CCI_KheperaIVGroundSensor,
+   class CTurtlebot3GroundRotZOnlySensor : public CCI_Turtlebot3GroundSensor,
                                           public CSimulatedSensor {
 
    public:
 
-      CKheperaIVGroundRotZOnlySensor();
+      CTurtlebot3GroundRotZOnlySensor();
 
-      virtual ~CKheperaIVGroundRotZOnlySensor() {}
+      virtual ~CTurtlebot3GroundRotZOnlySensor() {}
 
       virtual void SetRobot(CComposableEntity& c_entity);
 

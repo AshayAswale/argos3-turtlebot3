@@ -1,21 +1,21 @@
-#ifndef REAL_KHEPERAIV_CAMERA_SENSOR_H
-#define REAL_KHEPERAIV_CAMERA_SENSOR_H
+#ifndef REAL_TURTLEBOT3_CAMERA_SENSOR_H
+#define REAL_TURTLEBOT3_CAMERA_SENSOR_H
 
-#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_camera_sensor.h>
-#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_device.h>
+#include <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_camera_sensor.h>
+#include <argos3/plugins/robots/turtlebot3/real_robot/real_turtlebot3_device.h>
 #include <pthread.h>
 
 using namespace argos;
 
-class CRealKheperaIVCameraSensor :
-   public CCI_KheperaIVCameraSensor,
-   public CRealKheperaIVDevice {
+class CRealTurtlebot3CameraSensor :
+   public CCI_Turtlebot3CameraSensor,
+   public CRealTurtlebot3Device {
 
 public:
 
-   CRealKheperaIVCameraSensor(knet_dev_t* pt_dspic);
+   CRealTurtlebot3CameraSensor(knet_dev_t* pt_dspic);
    
-   virtual ~CRealKheperaIVCameraSensor();
+   virtual ~CRealTurtlebot3CameraSensor();
 
    virtual void Init(TConfigurationNode& t_node);
 
@@ -44,9 +44,9 @@ private:
    /* Image buffer */
    unsigned char* m_pchImgBuffer;
    /* Work buffer for blob detection */
-   CCI_KheperaIVCameraSensor::TBlobs m_tBlobWorkBuffer;
+   CCI_Turtlebot3CameraSensor::TBlobs m_tBlobWorkBuffer;
    /* Ready buffer for blob detection */
-   CCI_KheperaIVCameraSensor::TBlobs m_tBlobReadyBuffer;
+   CCI_Turtlebot3CameraSensor::TBlobs m_tBlobReadyBuffer;
    /* Vector of blob filters */
    TBlobFilters m_tBlobFilters;
    /* Thread handle */
@@ -57,4 +57,4 @@ private:
    bool m_bNewBlobReadings;
 };
 
-#endif // REAL_KHEPERAIV_CAMERA_SENSOR_H
+#endif // REAL_TURTLEBOT3_CAMERA_SENSOR_H

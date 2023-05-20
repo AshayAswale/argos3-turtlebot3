@@ -1,7 +1,7 @@
 #include <argos3/core/utility/configuration/argos_configuration.h>
 #include <argos3/core/utility/configuration/command_line_arg_parser.h>
 #include <argos3/core/utility/logging/argos_log.h>
-#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv.h>
+#include <argos3/plugins/robots/turtlebot3/real_robot/real_turtlebot3.h>
 
 using namespace argos;
 
@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
       /*
        * Initialize the robot
        */
-      CRealKheperaIV* pcRobot = new CRealKheperaIV();
+      CRealTurtlebot3* pcRobot = new CRealTurtlebot3();
       pcRobot->Init(strARGoSFName, strControllerId);
       /*
        * Perform the main loop

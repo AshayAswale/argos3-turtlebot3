@@ -1,18 +1,18 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_camera_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_camera_sensor.h>
  *
- * @brief This file provides the definition of the Khepera IV camera sensor.
+ * @brief This file provides the definition of the Turtlebot 3 camera sensor.
  *
- * This file provides the definition of the Khepera IV camera sensor.
+ * This file provides the definition of the Turtlebot 3 camera sensor.
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_CAMERA_SENSOR_H
-#define CCI_KHEPERAIV_CAMERA_SENSOR_H
+#ifndef CCI_TURTLEBOT3_CAMERA_SENSOR_H
+#define CCI_TURTLEBOT3_CAMERA_SENSOR_H
 
 namespace argos {
-   class CCI_KheperaIVCameraSensor;
+   class CCI_Turtlebot3CameraSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -22,7 +22,7 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_KheperaIVCameraSensor : public CCI_Sensor {
+   class CCI_Turtlebot3CameraSensor : public CCI_Sensor {
 
    public:
 
@@ -43,8 +43,8 @@ namespace argos {
 
    public:
 
-      CCI_KheperaIVCameraSensor();
-      virtual ~CCI_KheperaIVCameraSensor() {}
+      CCI_Turtlebot3CameraSensor();
+      virtual ~CCI_Turtlebot3CameraSensor() {}
 
       UInt32 GetWidth() const;
 
@@ -67,8 +67,8 @@ namespace argos {
       TBlobs m_tBlobs;
    };
 
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVCameraSensor::SBlob& s_blob);
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVCameraSensor::TBlobs& t_blobs);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3CameraSensor::SBlob& s_blob);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3CameraSensor::TBlobs& t_blobs);
 
 }
 

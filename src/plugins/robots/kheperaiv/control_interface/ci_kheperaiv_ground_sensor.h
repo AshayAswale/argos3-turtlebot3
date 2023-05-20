@@ -1,7 +1,7 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ground_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_ground_sensor.h>
  *
- * @brief This file provides the interface of the Khepera IV ground sensor.
+ * @brief This file provides the interface of the Turtlebot 3 ground sensor.
  *
  * The ground sensors are located on the bottom of the robot, and can
  * be used to perform line following.
@@ -22,11 +22,11 @@
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_GROUND_SENSOR_H
-#define CCI_KHEPERAIV_GROUND_SENSOR_H
+#ifndef CCI_TURTLEBOT3_GROUND_SENSOR_H
+#define CCI_TURTLEBOT3_GROUND_SENSOR_H
 
 namespace argos {
-   class CCI_KheperaIVGroundSensor;
+   class CCI_Turtlebot3GroundSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -35,7 +35,7 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_KheperaIVGroundSensor : virtual public CCI_Sensor {
+   class CCI_Turtlebot3GroundSensor : virtual public CCI_Sensor {
 
    public:
 
@@ -56,9 +56,9 @@ namespace argos {
 
    public:
 
-      CCI_KheperaIVGroundSensor();
+      CCI_Turtlebot3GroundSensor();
 
-      virtual ~CCI_KheperaIVGroundSensor() {}
+      virtual ~CCI_Turtlebot3GroundSensor() {}
       
       const TReadings& GetReadings() const;
       
@@ -75,10 +75,10 @@ namespace argos {
    };
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVGroundSensor::SReading& s_reading);
+                            const CCI_Turtlebot3GroundSensor::SReading& s_reading);
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVGroundSensor::TReadings& t_readings);
+                            const CCI_Turtlebot3GroundSensor::TReadings& t_readings);
 
 }
 

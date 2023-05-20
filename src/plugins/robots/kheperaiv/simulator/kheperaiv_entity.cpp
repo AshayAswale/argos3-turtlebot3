@@ -1,11 +1,11 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_entity.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_entity.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "kheperaiv_entity.h"
-#include "kheperaiv_measures.h"
+#include "turtlebot3_entity.h"
+#include "turtlebot3_measures.h"
 
 #include <argos3/core/utility/math/matrix/rotationmatrix3.h>
 #include <argos3/core/simulator/space/space.h>
@@ -31,7 +31,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CKheperaIVEntity::CKheperaIVEntity() :
+   CTurtlebot3Entity::CTurtlebot3Entity() :
       CComposableEntity(NULL),
       m_pcControllableEntity(NULL),
       m_pcEmbodiedEntity(NULL),
@@ -48,7 +48,7 @@ namespace argos {
    /****************************************/
    /****************************************/
    
-   CKheperaIVEntity::CKheperaIVEntity(const std::string& str_id,
+   CTurtlebot3Entity::CTurtlebot3Entity(const std::string& str_id,
                                       const std::string& str_controller_id,
                                       const CVector3& c_position,
                                       const CQuaternion& c_orientation,
@@ -76,16 +76,16 @@ namespace argos {
          /* Wheeled entity and wheel positions (left, right) */
          m_pcWheeledEntity = new CWheeledEntity(this, "wheels_0", 2);
          AddComponent(*m_pcWheeledEntity);
-         m_pcWheeledEntity->SetWheel(0, CVector3(0.0f,  KHEPERAIV_HALF_WHEEL_DISTANCE, 0.0f), KHEPERAIV_WHEEL_RADIUS);
-         m_pcWheeledEntity->SetWheel(1, CVector3(0.0f, -KHEPERAIV_HALF_WHEEL_DISTANCE, 0.0f), KHEPERAIV_WHEEL_RADIUS);
+         m_pcWheeledEntity->SetWheel(0, CVector3(0.0f,  TURTLEBOT3_HALF_WHEEL_DISTANCE, 0.0f), TURTLEBOT3_WHEEL_RADIUS);
+         m_pcWheeledEntity->SetWheel(1, CVector3(0.0f, -TURTLEBOT3_HALF_WHEEL_DISTANCE, 0.0f), TURTLEBOT3_WHEEL_RADIUS);
          /* LED equipped entity */
          m_pcLEDEquippedEntity = new CLEDEquippedEntity(this, "leds_0");
          AddComponent(*m_pcLEDEquippedEntity);
-         m_pcLEDEquippedEntity->AddLED(KHEPERAIV_LEDS_OFFSET[0],
+         m_pcLEDEquippedEntity->AddLED(TURTLEBOT3_LEDS_OFFSET[0],
                                        m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcLEDEquippedEntity->AddLED(KHEPERAIV_LEDS_OFFSET[1],
+         m_pcLEDEquippedEntity->AddLED(TURTLEBOT3_LEDS_OFFSET[1],
                                        m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcLEDEquippedEntity->AddLED(KHEPERAIV_LEDS_OFFSET[2],
+         m_pcLEDEquippedEntity->AddLED(TURTLEBOT3_LEDS_OFFSET[2],
                                        m_pcEmbodiedEntity->GetOriginAnchor());
          /* Proximity sensor equipped entity */
          m_pcProximitySensorEquippedEntity =
@@ -93,10 +93,10 @@ namespace argos {
                                                "proximity");
          AddComponent(*m_pcProximitySensorEquippedEntity);
          m_pcProximitySensorEquippedEntity->AddSensorRing(
-            CVector3(0.0f, 0.0f, KHEPERAIV_IR_SENSORS_RING_ELEVATION),
-            KHEPERAIV_IR_SENSORS_RING_RADIUS,
+            CVector3(0.0f, 0.0f, TURTLEBOT3_IR_SENSORS_RING_ELEVATION),
+            TURTLEBOT3_IR_SENSORS_RING_RADIUS,
             CRadians::ZERO,
-            KHEPERAIV_IR_SENSORS_RING_RANGE,
+            TURTLEBOT3_IR_SENSORS_RING_RANGE,
             8,
             m_pcEmbodiedEntity->GetOriginAnchor());
          /* Ultrasound sensor equipped entity */
@@ -106,14 +106,14 @@ namespace argos {
          AddComponent(*m_pcUltrasoundSensorEquippedEntity);
          for(UInt32 i = 0; i < 5; ++i) {
             m_pcUltrasoundSensorEquippedEntity->AddSensor(
-               CVector3(KHEPERAIV_ULTRASOUND_SENSORS_RING_RADIUS +
-                        KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMin(),
+               CVector3(TURTLEBOT3_ULTRASOUND_SENSORS_RING_RADIUS +
+                        TURTLEBOT3_ULTRASOUND_SENSORS_RING_RANGE.GetMin(),
                         CRadians::ZERO,
                         ULTRASOUND_SENSOR_ANGLES[i]), // offset
                CVector3(1.0,
                         CRadians::ZERO,
                         ULTRASOUND_SENSOR_ANGLES[i]), // direction
-               KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
+               TURTLEBOT3_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
                m_pcEmbodiedEntity->GetOriginAnchor());
          }
          /* LIDAR sensor equipped entity */
@@ -127,10 +127,10 @@ namespace argos {
                                            "light_0");
          AddComponent(*m_pcLightSensorEquippedEntity);
          m_pcLightSensorEquippedEntity->AddSensorRing(
-            CVector3(0.0f, 0.0f, KHEPERAIV_IR_SENSORS_RING_ELEVATION),
-            KHEPERAIV_IR_SENSORS_RING_RADIUS,
+            CVector3(0.0f, 0.0f, TURTLEBOT3_IR_SENSORS_RING_ELEVATION),
+            TURTLEBOT3_IR_SENSORS_RING_RADIUS,
             CRadians::ZERO,
-            KHEPERAIV_IR_SENSORS_RING_RANGE,
+            TURTLEBOT3_IR_SENSORS_RING_RANGE,
             8,
             m_pcEmbodiedEntity->GetOriginAnchor());
          /* Ground sensor equipped entity */
@@ -138,16 +138,16 @@ namespace argos {
             new CGroundSensorEquippedEntity(this,
                                             "ground_0");
          AddComponent(*m_pcGroundSensorEquippedEntity);
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[0],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[0],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[1],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[1],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[2],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[2],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[3],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[3],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
          /* RAB equipped entity */
@@ -158,7 +158,7 @@ namespace argos {
                                    f_rab_range,
                                    m_pcEmbodiedEntity->GetOriginAnchor(),
                                    *m_pcEmbodiedEntity,
-                                   CVector3(0.0f, 0.0f, KHEPERAIV_BASE_TOP));
+                                   CVector3(0.0f, 0.0f, TURTLEBOT3_BASE_TOP));
          AddComponent(*m_pcRABEquippedEntity);
          /* Battery equipped entity */
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
@@ -179,7 +179,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVEntity::Init(TConfigurationNode& t_tree) {
+   void CTurtlebot3Entity::Init(TConfigurationNode& t_tree) {
       try {
          /*
           * Init parent
@@ -195,16 +195,16 @@ namespace argos {
          /* Wheeled entity and wheel positions (left, right) */
          m_pcWheeledEntity = new CWheeledEntity(this, "wheels_0", 2);
          AddComponent(*m_pcWheeledEntity);
-         m_pcWheeledEntity->SetWheel(0, CVector3(0.0f,  KHEPERAIV_HALF_WHEEL_DISTANCE, 0.0f), KHEPERAIV_WHEEL_RADIUS);
-         m_pcWheeledEntity->SetWheel(1, CVector3(0.0f, -KHEPERAIV_HALF_WHEEL_DISTANCE, 0.0f), KHEPERAIV_WHEEL_RADIUS);
+         m_pcWheeledEntity->SetWheel(0, CVector3(0.0f,  TURTLEBOT3_HALF_WHEEL_DISTANCE, 0.0f), TURTLEBOT3_WHEEL_RADIUS);
+         m_pcWheeledEntity->SetWheel(1, CVector3(0.0f, -TURTLEBOT3_HALF_WHEEL_DISTANCE, 0.0f), TURTLEBOT3_WHEEL_RADIUS);
          /* LED equipped entity, with LEDs [0-11] and beacon [12] */
          m_pcLEDEquippedEntity = new CLEDEquippedEntity(this, "leds_0");
          AddComponent(*m_pcLEDEquippedEntity);
-         m_pcLEDEquippedEntity->AddLED(KHEPERAIV_LEDS_OFFSET[0],
+         m_pcLEDEquippedEntity->AddLED(TURTLEBOT3_LEDS_OFFSET[0],
                                        m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcLEDEquippedEntity->AddLED(KHEPERAIV_LEDS_OFFSET[1],
+         m_pcLEDEquippedEntity->AddLED(TURTLEBOT3_LEDS_OFFSET[1],
                                        m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcLEDEquippedEntity->AddLED(KHEPERAIV_LEDS_OFFSET[2],
+         m_pcLEDEquippedEntity->AddLED(TURTLEBOT3_LEDS_OFFSET[2],
                                        m_pcEmbodiedEntity->GetOriginAnchor());
          /* Proximity sensor equipped entity */
          m_pcProximitySensorEquippedEntity =
@@ -212,10 +212,10 @@ namespace argos {
                                                "proximity");
          AddComponent(*m_pcProximitySensorEquippedEntity);
          m_pcProximitySensorEquippedEntity->AddSensorRing(
-            CVector3(0.0f, 0.0f, KHEPERAIV_IR_SENSORS_RING_ELEVATION),
-            KHEPERAIV_IR_SENSORS_RING_RADIUS,
+            CVector3(0.0f, 0.0f, TURTLEBOT3_IR_SENSORS_RING_ELEVATION),
+            TURTLEBOT3_IR_SENSORS_RING_RADIUS,
             CRadians::ZERO,
-            KHEPERAIV_IR_SENSORS_RING_RANGE,
+            TURTLEBOT3_IR_SENSORS_RING_RANGE,
             8,
             m_pcEmbodiedEntity->GetOriginAnchor());
          /* Ultrasound sensor equipped entity */
@@ -225,14 +225,14 @@ namespace argos {
          AddComponent(*m_pcUltrasoundSensorEquippedEntity);
          for(UInt32 i = 0; i < 5; ++i) {
             m_pcUltrasoundSensorEquippedEntity->AddSensor(
-               CVector3(KHEPERAIV_ULTRASOUND_SENSORS_RING_RADIUS +
-                        KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMin(),
+               CVector3(TURTLEBOT3_ULTRASOUND_SENSORS_RING_RADIUS +
+                        TURTLEBOT3_ULTRASOUND_SENSORS_RING_RANGE.GetMin(),
                         CRadians::PI_OVER_TWO,
                         ULTRASOUND_SENSOR_ANGLES[i]), // offset
                CVector3(1.0,
                         CRadians::PI_OVER_TWO,
                         ULTRASOUND_SENSOR_ANGLES[i]), // direction
-               KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
+               TURTLEBOT3_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
                m_pcEmbodiedEntity->GetOriginAnchor());
          }
          /* LIDAR sensor equipped entity */
@@ -246,10 +246,10 @@ namespace argos {
                                            "light_0");
          AddComponent(*m_pcLightSensorEquippedEntity);
          m_pcLightSensorEquippedEntity->AddSensorRing(
-            CVector3(0.0f, 0.0f, KHEPERAIV_IR_SENSORS_RING_ELEVATION),
-            KHEPERAIV_IR_SENSORS_RING_RADIUS,
+            CVector3(0.0f, 0.0f, TURTLEBOT3_IR_SENSORS_RING_ELEVATION),
+            TURTLEBOT3_IR_SENSORS_RING_RADIUS,
             CRadians::ZERO,
-            KHEPERAIV_IR_SENSORS_RING_RANGE,
+            TURTLEBOT3_IR_SENSORS_RING_RANGE,
             8,
             m_pcEmbodiedEntity->GetOriginAnchor());
          /* Ground sensor equipped entity */
@@ -257,16 +257,16 @@ namespace argos {
             new CGroundSensorEquippedEntity(this,
                                             "ground_0");
          AddComponent(*m_pcGroundSensorEquippedEntity);
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[0],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[0],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[1],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[1],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[2],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[2],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
-         m_pcGroundSensorEquippedEntity->AddSensor(KHEPERAIV_IR_SENSORS_GROUND_OFFSET[3],
+         m_pcGroundSensorEquippedEntity->AddSensor(TURTLEBOT3_IR_SENSORS_GROUND_OFFSET[3],
                                                    CGroundSensorEquippedEntity::TYPE_GRAYSCALE,
                                                    m_pcEmbodiedEntity->GetOriginAnchor());
          /* RAB equipped entity */
@@ -281,7 +281,7 @@ namespace argos {
                                    fRange,
                                    m_pcEmbodiedEntity->GetOriginAnchor(),
                                    *m_pcEmbodiedEntity,
-                                   CVector3(0.0f, 0.0f, KHEPERAIV_BASE_TOP));
+                                   CVector3(0.0f, 0.0f, TURTLEBOT3_BASE_TOP));
          AddComponent(*m_pcRABEquippedEntity);
          /* Battery equipped entity */
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0");
@@ -304,7 +304,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVEntity::Reset() {
+   void CTurtlebot3Entity::Reset() {
       /* Reset all components */
       CComposableEntity::Reset();
       /* Update components */
@@ -314,14 +314,14 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVEntity::Destroy() {
+   void CTurtlebot3Entity::Destroy() {
       CComposableEntity::Destroy();
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVEntity::UpdateComponents() {
+   void CTurtlebot3Entity::UpdateComponents() {
       if(m_pcLEDEquippedEntity->IsEnabled())
          m_pcLEDEquippedEntity->Update();
       if(m_pcRABEquippedEntity->IsEnabled())
@@ -333,31 +333,31 @@ namespace argos {
    /****************************************/
    /****************************************/
    
-   REGISTER_ENTITY(CKheperaIVEntity,
-                   "kheperaiv",
+   REGISTER_ENTITY(CTurtlebot3Entity,
+                   "turtlebot3",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The Khepera IV robot.",
-                   "The Khepera IV is a commercial, extensible robot produced by K-Teams. More\n"
-                   "information is available at https://www.k-team.com/khepera-iv.\n\n"
+                   "The Turtlebot 3 robot.",
+                   "The Turtlebot 3 is a commercial, extensible robot produced by K-Teams. More\n"
+                   "information is available at https://www.k-team.com/turtlebot3-iv.\n\n"
                    "REQUIRED XML CONFIGURATION\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <kheperaiv id=\"eb0\">\n"
+                   "    <turtlebot3 id=\"eb0\">\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,90,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
-                   "    </kheperaiv>\n"
+                   "    </turtlebot3>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "The 'id' attribute is necessary and must be unique among the entities. If two\n"
                    "entities share the same id, initialization aborts.\n"
                    "The 'body/position' attribute specifies the position of the pucktom point of the\n"
-                   "Khepera IV in the arena. When the robot is untranslated and unrotated, the\n"
+                   "Turtlebot 3 in the arena. When the robot is untranslated and unrotated, the\n"
                    "pucktom point is in the origin and it is defined as the middle point between\n"
                    "the two wheels on the XY plane and the lowest point of the robot on the Z\n"
                    "axis, that is the point where the wheels touch the floor. The attribute values\n"
                    "are in the X,Y,Z order.\n"
-                   "The 'body/orientation' attribute specifies the orientation of the Khepera IV.\n"
+                   "The 'body/orientation' attribute specifies the orientation of the Turtlebot 3.\n"
                    "All rotations are performed with respect to the pucktom point. The order of the\n"
                    "angles is Z,Y,X, which means that the first number corresponds to the rotation\n"
                    "around the Z axis, the second around Y and the last around X. This reflects\n"
@@ -365,29 +365,29 @@ namespace argos {
                    "that order. Angles are expressed in degrees. When the robot is unrotated, it\n"
                    "is oriented along the X axis.\n"
                    "The 'controller/config' attribute is used to assign a controller to the\n"
-                   "Khepera IV. The value of the attribute must be set to the id of a previously\n"
+                   "Turtlebot 3. The value of the attribute must be set to the id of a previously\n"
                    "defined controller. Controllers are defined in the <controllers> XML subtree.\n\n"
                    "OPTIONAL XML CONFIGURATION\n\n"
                    "You can set the emission range of the range-and-bearing system. By default, a\n"
-                   "message sent by a Khepera IV can be received up to 3m. By using the 'rab_range'\n"
+                   "message sent by a Turtlebot 3 can be received up to 3m. By using the 'rab_range'\n"
                    "attribute, you can change it to, i.e., 4m as follows:\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <kheperaiv id=\"kh0\" rab_range=\"4\">\n"
+                   "    <turtlebot3 id=\"kh0\" rab_range=\"4\">\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
-                   "    </kheperaiv>\n"
+                   "    </turtlebot3>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "You can also set the data sent at each time step through the range-and-bearing"
-                   "system. By default, a message sent by a khepera is 50 bytes long. By using the"
+                   "system. By default, a message sent by a turtlebot3 is 50 bytes long. By using the"
                    "'rab_data_size' attribute, you can change it to, i.e., 100 bytes as follows:\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <kheperaiv id=\"kh0\" rab_data_size=\"100\">\n"
+                   "    <turtlebot3 id=\"kh0\" rab_data_size=\"100\">\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
-                   "    </kheperaiv>\n"
+                   "    </turtlebot3>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "You can also configure the battery of the robot. By default, the battery never\n"
@@ -399,32 +399,32 @@ namespace argos {
                    "argos3/src/plugins/simulator/entities/battery_equipped_entity.cpp.\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <kheperaiv id=\"kh0\"\n"
+                   "    <turtlebot3 id=\"kh0\"\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
                    "      <battery model=\"time\" factor=\"1e-5\"/>\n"
-                   "    </kheperaiv>\n"
+                   "    </turtlebot3>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <kheperaiv id=\"kh0\"\n"
+                   "    <turtlebot3 id=\"kh0\"\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
                    "      <battery model=\"motion\" pos_factor=\"1e-3\"\n"
                    "                              orient_factor=\"1e-3\"/>\n"
-                   "    </kheperaiv>\n"
+                   "    </turtlebot3>\n"
                    "    ...\n"
                    "  </arena>\n\n"
                    "  <arena ...>\n"
                    "    ...\n"
-                   "    <kheperaiv id=\"kh0\"\n"
+                   "    <turtlebot3 id=\"kh0\"\n"
                    "      <body position=\"0.4,2.3,0.25\" orientation=\"45,0,0\" />\n"
                    "      <controller config=\"mycntrl\" />\n"
                    "      <battery model=\"time_motion\" time_factor=\"1e-5\"\n"
                    "                                   pos_factor=\"1e-3\"\n"
                    "                                   orient_factor=\"1e-3\"/>\n"
-                   "    </kheperaiv>\n"
+                   "    </turtlebot3>\n"
                    "    ...\n"
                    "  </arena>\n\n",
                    "Under development"
@@ -433,7 +433,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_STANDARD_SPACE_OPERATIONS_ON_COMPOSABLE(CKheperaIVEntity);
+   REGISTER_STANDARD_SPACE_OPERATIONS_ON_COMPOSABLE(CTurtlebot3Entity);
 
    /****************************************/
    /****************************************/

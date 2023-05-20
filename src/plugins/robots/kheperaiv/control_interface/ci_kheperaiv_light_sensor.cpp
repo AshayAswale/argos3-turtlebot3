@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_light_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_light_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "ci_kheperaiv_light_sensor.h"
+#include "ci_turtlebot3_light_sensor.h"
 
 #ifdef ARGOS_WITH_LUA
 #include <argos3/core/wrappers/lua/lua_utility.h>
@@ -20,7 +20,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CCI_KheperaIVLightSensor::CCI_KheperaIVLightSensor() :
+   CCI_Turtlebot3LightSensor::CCI_Turtlebot3LightSensor() :
       m_tReadings(8) {
       for(size_t i = 0; i < 8; ++i) {
          m_tReadings[i].Angle = i * SPACING;
@@ -31,7 +31,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   const CCI_KheperaIVLightSensor::TReadings& CCI_KheperaIVLightSensor::GetReadings() const {
+   const CCI_Turtlebot3LightSensor::TReadings& CCI_Turtlebot3LightSensor::GetReadings() const {
      return m_tReadings;
    }
 
@@ -39,7 +39,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVLightSensor::CreateLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3LightSensor::CreateLuaState(lua_State* pt_lua_state) {
       CLuaUtility::OpenRobotStateTable(pt_lua_state, "light");
       for(size_t i = 0; i < GetReadings().size(); ++i) {
          CLuaUtility::StartTable(pt_lua_state, i+1                           );
@@ -55,7 +55,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVLightSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3LightSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
       lua_getfield(pt_lua_state, -1, "light");
       for(size_t i = 0; i < GetReadings().size(); ++i) {
          lua_pushnumber(pt_lua_state, i+1                 );
@@ -73,7 +73,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVLightSensor::SReading& s_reading) {
+                            const CCI_Turtlebot3LightSensor::SReading& s_reading) {
       c_os << "Value=<" << s_reading.Value
            << ">, Angle=<" << s_reading.Angle << ">";
       return c_os;
@@ -83,7 +83,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVLightSensor::TReadings& t_readings) {
+                            const CCI_Turtlebot3LightSensor::TReadings& t_readings) {
       if(! t_readings.empty()) {
          c_os << "{ " << t_readings[0].Value << " }";
          for(UInt32 i = 1; i < t_readings.size(); ++i) {

@@ -1,11 +1,11 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/dynamics2d_kheperaiv_model.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/dynamics2d_turtlebot3_model.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "dynamics2d_kheperaiv_model.h"
-#include "kheperaiv_measures.h"
+#include "dynamics2d_turtlebot3_model.h"
+#include "turtlebot3_measures.h"
 
 #include <argos3/plugins/simulator/physics_engines/dynamics2d/dynamics2d_gripping.h>
 #include <argos3/plugins/simulator/physics_engines/dynamics2d/dynamics2d_engine.h>
@@ -15,36 +15,36 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   static const Real KHEPERAIV_MASS                = 0.4f;
-   static const Real KHEPERAIV_MAX_FORCE           = 1.5f;
-   static const Real KHEPERAIV_MAX_TORQUE          = 1.5f;
+   static const Real TURTLEBOT3_MASS                = 0.4f;
+   static const Real TURTLEBOT3_MAX_FORCE           = 1.5f;
+   static const Real TURTLEBOT3_MAX_TORQUE          = 1.5f;
 
-   enum KHEPERAIV_WHEELS {
-      KHEPERAIV_LEFT_WHEEL = 0,
-      KHEPERAIV_RIGHT_WHEEL = 1
+   enum TURTLEBOT3_WHEELS {
+      TURTLEBOT3_LEFT_WHEEL = 0,
+      TURTLEBOT3_RIGHT_WHEEL = 1
    };
 
    /****************************************/
    /****************************************/
 
-   CDynamics2DKheperaIVModel::CDynamics2DKheperaIVModel(CDynamics2DEngine& c_engine,
-                                                        CKheperaIVEntity& c_entity) :
+   CDynamics2DTurtlebot3Model::CDynamics2DTurtlebot3Model(CDynamics2DEngine& c_engine,
+                                                        CTurtlebot3Entity& c_entity) :
       CDynamics2DSingleBodyObjectModel(c_engine, c_entity),
-      m_cKheperaIVEntity(c_entity),
-      m_cWheeledEntity(m_cKheperaIVEntity.GetWheeledEntity()),
+      m_cTurtlebot3Entity(c_entity),
+      m_cWheeledEntity(m_cTurtlebot3Entity.GetWheeledEntity()),
       m_cDiffSteering(c_engine,
-                      KHEPERAIV_MAX_FORCE,
-                      KHEPERAIV_MAX_TORQUE,
-                      KHEPERAIV_WHEEL_DISTANCE,
+                      TURTLEBOT3_MAX_FORCE,
+                      TURTLEBOT3_MAX_TORQUE,
+                      TURTLEBOT3_WHEEL_DISTANCE,
                       c_entity.GetConfigurationNode()),
       m_fCurrentWheelVelocity(m_cWheeledEntity.GetWheelVelocities()) {
       /* Create the body with initial position and orientation */
       cpBody* ptBody =
          cpSpaceAddBody(GetDynamics2DEngine().GetPhysicsSpace(),
-                        cpBodyNew(KHEPERAIV_MASS,
-                                  cpMomentForCircle(KHEPERAIV_MASS,
+                        cpBodyNew(TURTLEBOT3_MASS,
+                                  cpMomentForCircle(TURTLEBOT3_MASS,
                                                     0.0f,
-                                                    KHEPERAIV_BASE_RADIUS + KHEPERAIV_BASE_RADIUS,
+                                                    TURTLEBOT3_BASE_RADIUS + TURTLEBOT3_BASE_RADIUS,
                                                     cpvzero)));
       const CVector3& cPosition = GetEmbodiedEntity().GetOriginAnchor().Position;
       ptBody->p = cpv(cPosition.GetX(), cPosition.GetY());
@@ -55,27 +55,27 @@ namespace argos {
       cpShape* ptShape =
          cpSpaceAddShape(GetDynamics2DEngine().GetPhysicsSpace(),
                          cpCircleShapeNew(ptBody,
-                                          KHEPERAIV_BASE_RADIUS,
+                                          TURTLEBOT3_BASE_RADIUS,
                                           cpvzero));
       ptShape->e = 0.0; // No elasticity
       ptShape->u = 0.7; // Lots of friction
       /* Constrain the actual base body to follow the diff steering control */
       m_cDiffSteering.AttachTo(ptBody);
       /* Set the body so that the default methods work as expected */
-      SetBody(ptBody, KHEPERAIV_BASE_TOP);
+      SetBody(ptBody, TURTLEBOT3_BASE_TOP);
    }
 
    /****************************************/
    /****************************************/
 
-   CDynamics2DKheperaIVModel::~CDynamics2DKheperaIVModel() {
+   CDynamics2DTurtlebot3Model::~CDynamics2DTurtlebot3Model() {
       m_cDiffSteering.Detach();
    }
 
    /****************************************/
    /****************************************/
 
-   void CDynamics2DKheperaIVModel::Reset() {
+   void CDynamics2DTurtlebot3Model::Reset() {
       CDynamics2DSingleBodyObjectModel::Reset();
       m_cDiffSteering.Reset();
    }
@@ -83,12 +83,12 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CDynamics2DKheperaIVModel::UpdateFromEntityStatus() {
+   void CDynamics2DTurtlebot3Model::UpdateFromEntityStatus() {
       /* Do we want to move? */
-      if((m_fCurrentWheelVelocity[KHEPERAIV_LEFT_WHEEL] != 0.0f) ||
-         (m_fCurrentWheelVelocity[KHEPERAIV_RIGHT_WHEEL] != 0.0f)) {
-         m_cDiffSteering.SetWheelVelocity(m_fCurrentWheelVelocity[KHEPERAIV_LEFT_WHEEL],
-                                          m_fCurrentWheelVelocity[KHEPERAIV_RIGHT_WHEEL]);
+      if((m_fCurrentWheelVelocity[TURTLEBOT3_LEFT_WHEEL] != 0.0f) ||
+         (m_fCurrentWheelVelocity[TURTLEBOT3_RIGHT_WHEEL] != 0.0f)) {
+         m_cDiffSteering.SetWheelVelocity(m_fCurrentWheelVelocity[TURTLEBOT3_LEFT_WHEEL],
+                                          m_fCurrentWheelVelocity[TURTLEBOT3_RIGHT_WHEEL]);
       }
       else {
          /* No, we don't want to move - zero all speeds */
@@ -99,7 +99,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   REGISTER_STANDARD_DYNAMICS2D_OPERATIONS_ON_ENTITY(CKheperaIVEntity, CDynamics2DKheperaIVModel);
+   REGISTER_STANDARD_DYNAMICS2D_OPERATIONS_ON_ENTITY(CTurtlebot3Entity, CDynamics2DTurtlebot3Model);
 
    /****************************************/
    /****************************************/

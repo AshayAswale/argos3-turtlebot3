@@ -1,32 +1,32 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_lidar_default_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_lidar_default_sensor.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef KHEPERAIV_LIDAR_DEFAULT_SENSOR_H
-#define KHEPERAIV_LIDAR_DEFAULT_SENSOR_H
+#ifndef TURTLEBOT3_LIDAR_DEFAULT_SENSOR_H
+#define TURTLEBOT3_LIDAR_DEFAULT_SENSOR_H
 
 #include <string>
 #include <map>
 
 namespace argos {
-   class CKheperaIVLIDARDefaultSensor;
+   class CTurtlebot3LIDARDefaultSensor;
 }
 
-#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_lidar_sensor.h>
+#include <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_lidar_sensor.h>
 #include <argos3/plugins/robots/generic/simulator/proximity_default_sensor.h>
 
 namespace argos {
 
-   class CKheperaIVLIDARDefaultSensor : public CCI_KheperaIVLIDARSensor,
+   class CTurtlebot3LIDARDefaultSensor : public CCI_Turtlebot3LIDARSensor,
                                         public CSimulatedSensor {
 
    public:
 
-      CKheperaIVLIDARDefaultSensor();
+      CTurtlebot3LIDARDefaultSensor();
 
-      virtual ~CKheperaIVLIDARDefaultSensor();
+      virtual ~CTurtlebot3LIDARDefaultSensor();
 
       virtual void SetRobot(CComposableEntity& c_entity);
 

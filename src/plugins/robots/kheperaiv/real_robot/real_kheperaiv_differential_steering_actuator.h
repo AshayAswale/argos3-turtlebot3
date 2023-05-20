@@ -1,21 +1,21 @@
-#ifndef REAL_KHEPERAIV_DIFFERENTIAL_STEERING_ACTUATOR_H
-#define REAL_KHEPERAIV_DIFFERENTIAL_STEERING_ACTUATOR_H
+#ifndef REAL_TURTLEBOT3_DIFFERENTIAL_STEERING_ACTUATOR_H
+#define REAL_TURTLEBOT3_DIFFERENTIAL_STEERING_ACTUATOR_H
 
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
-#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_device.h>
-#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_differential_steering_device.h>
+#include <argos3/plugins/robots/turtlebot3/real_robot/real_turtlebot3_device.h>
+#include <argos3/plugins/robots/turtlebot3/real_robot/real_turtlebot3_differential_steering_device.h>
 
 using namespace argos;
 
-class CRealKheperaIVDifferentialSteeringActuator :
+class CRealTurtlebot3DifferentialSteeringActuator :
    public CCI_DifferentialSteeringActuator,
-   public CRealKheperaIVDevice {
+   public CRealTurtlebot3Device {
 
 public:
 
-   CRealKheperaIVDifferentialSteeringActuator(knet_dev_t* pt_dspic);
+   CRealTurtlebot3DifferentialSteeringActuator(knet_dev_t* pt_dspic);
    
-   virtual ~CRealKheperaIVDifferentialSteeringActuator();
+   virtual ~CRealTurtlebot3DifferentialSteeringActuator();
 
    virtual void Do(Real f_elapsed_time);
    
@@ -24,7 +24,7 @@ public:
 
 private:
 
-  CRealKheperaIVDifferentialSteeringDevice* m_pcDevice;
+  CRealTurtlebot3DifferentialSteeringDevice* m_pcDevice;
 };
 
 #endif

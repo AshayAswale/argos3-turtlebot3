@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ultrasound_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_ultrasound_sensor.cpp>
  *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#include "ci_kheperaiv_ultrasound_sensor.h"
+#include "ci_turtlebot3_ultrasound_sensor.h"
 #include <argos3/core/utility/math/angles.h>
 
 #ifdef ARGOS_WITH_LUA
@@ -24,7 +24,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CCI_KheperaIVUltrasoundSensor::CCI_KheperaIVUltrasoundSensor() :
+   CCI_Turtlebot3UltrasoundSensor::CCI_Turtlebot3UltrasoundSensor() :
       m_tReadings(5) {
       for(size_t i = 0; i < 5; ++i) {
          m_tReadings[i].Angle = ULTRASOUND_SENSOR_ANGLES[i];
@@ -34,7 +34,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   const CCI_KheperaIVUltrasoundSensor::TReadings& CCI_KheperaIVUltrasoundSensor::GetReadings() const {
+   const CCI_Turtlebot3UltrasoundSensor::TReadings& CCI_Turtlebot3UltrasoundSensor::GetReadings() const {
      return m_tReadings;
    }
 
@@ -42,7 +42,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVUltrasoundSensor::CreateLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3UltrasoundSensor::CreateLuaState(lua_State* pt_lua_state) {
       CLuaUtility::OpenRobotStateTable(pt_lua_state, "ultrasound");
       for(size_t i = 0; i < GetReadings().size(); ++i) {
          CLuaUtility::StartTable(pt_lua_state, i+1                           );
@@ -58,7 +58,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVUltrasoundSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3UltrasoundSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
       lua_getfield(pt_lua_state, -1, "ultrasound");
       for(size_t i = 0; i < GetReadings().size(); ++i) {
          lua_pushnumber(pt_lua_state, i+1                 );
@@ -76,7 +76,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVUltrasoundSensor::SReading& s_reading) {
+                            const CCI_Turtlebot3UltrasoundSensor::SReading& s_reading) {
       c_os << "Value=<" << s_reading.Value
            << ">, Angle=<" << s_reading.Angle << ">";
       return c_os;
@@ -86,7 +86,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVUltrasoundSensor::TReadings& t_readings) {
+                            const CCI_Turtlebot3UltrasoundSensor::TReadings& t_readings) {
       if(! t_readings.empty()) {
          c_os << "{ " << t_readings[0].Value << " }";
          for(UInt32 i = 1; i < t_readings.size(); ++i) {

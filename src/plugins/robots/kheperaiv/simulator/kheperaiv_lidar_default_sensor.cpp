@@ -1,5 +1,5 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_lidar_default_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_lidar_default_sensor.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
@@ -9,8 +9,8 @@
 #include <argos3/core/simulator/simulator.h>
 #include <argos3/plugins/simulator/entities/proximity_sensor_equipped_entity.h>
 
-#include "kheperaiv_lidar_default_sensor.h"
-#include "kheperaiv_measures.h"
+#include "turtlebot3_lidar_default_sensor.h"
+#include "turtlebot3_measures.h"
 
 #include <cstring>
 
@@ -19,15 +19,15 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   static UInt8 KHEPERAIV_POWERON_LASERON   = 3;
+   static UInt8 TURTLEBOT3_POWERON_LASERON   = 3;
 
    /****************************************/
    /****************************************/
 
-   CKheperaIVLIDARDefaultSensor::CKheperaIVLIDARDefaultSensor() :
+   CTurtlebot3LIDARDefaultSensor::CTurtlebot3LIDARDefaultSensor() :
       m_pnReadings(NULL),
       m_unNumReadings(682),
-      m_unPowerLaserState(KHEPERAIV_POWERON_LASERON),
+      m_unPowerLaserState(TURTLEBOT3_POWERON_LASERON),
       m_pcEmbodiedEntity(NULL),
       m_bShowRays(false),
       m_pcRNG(NULL),
@@ -37,13 +37,13 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CKheperaIVLIDARDefaultSensor::~CKheperaIVLIDARDefaultSensor() {
+   CTurtlebot3LIDARDefaultSensor::~CTurtlebot3LIDARDefaultSensor() {
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::SetRobot(CComposableEntity& c_entity) {
+   void CTurtlebot3LIDARDefaultSensor::SetRobot(CComposableEntity& c_entity) {
       try {
          m_pcEmbodiedEntity = &(c_entity.GetComponent<CEmbodiedEntity>("body"));
          m_pcControllableEntity = &(c_entity.GetComponent<CControllableEntity>("controller"));
@@ -51,24 +51,24 @@ namespace argos {
          m_pcProximityEntity->Enable();
       }
       catch(CARGoSException& ex) {
-         THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Khepera IV LIDAR default sensor", ex);
+         THROW_ARGOSEXCEPTION_NESTED("Can't set robot for the Turtlebot 3 LIDAR default sensor", ex);
       }
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::Init(TConfigurationNode& t_tree) {
+   void CTurtlebot3LIDARDefaultSensor::Init(TConfigurationNode& t_tree) {
       try {
-         CCI_KheperaIVLIDARSensor::Init(t_tree);
+         CCI_Turtlebot3LIDARSensor::Init(t_tree);
          /* How many readings? */
          GetNodeAttributeOrDefault(t_tree, "num_readings", m_unNumReadings, m_unNumReadings);
          m_pcProximityEntity->AddSensorFan(
-            CVector3(0.0, 0.0, KHEPERAIV_LIDAR_ELEVATION),
-            KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS + KHEPERAIV_LIDAR_SENSORS_RING_RANGE.GetMin(),
-            -KHEPERAIV_LIDAR_ANGLE_SPAN * 0.5,
-            KHEPERAIV_LIDAR_ANGLE_SPAN * 0.5,
-            KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS + KHEPERAIV_LIDAR_SENSORS_RING_RANGE.GetMax(),
+            CVector3(0.0, 0.0, TURTLEBOT3_LIDAR_ELEVATION),
+            TURTLEBOT3_LIDAR_SENSORS_FAN_RADIUS + TURTLEBOT3_LIDAR_SENSORS_RING_RANGE.GetMin(),
+            -TURTLEBOT3_LIDAR_ANGLE_SPAN * 0.5,
+            TURTLEBOT3_LIDAR_ANGLE_SPAN * 0.5,
+            TURTLEBOT3_LIDAR_SENSORS_FAN_RADIUS + TURTLEBOT3_LIDAR_SENSORS_RING_RANGE.GetMax(),
             m_unNumReadings,
             m_pcEmbodiedEntity->GetOriginAnchor());
          m_pnReadings = new long[m_unNumReadings];
@@ -94,9 +94,9 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::Update() {
+   void CTurtlebot3LIDARDefaultSensor::Update() {
       /* Nothing to do if sensor is deactivated */
-      if(m_unPowerLaserState != KHEPERAIV_POWERON_LASERON)
+      if(m_unPowerLaserState != TURTLEBOT3_POWERON_LASERON)
          return;
       /* Ray used for scanning the environment for obstacles */
       CRay3 cScanningRay;
@@ -145,74 +145,74 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::Reset() {
+   void CTurtlebot3LIDARDefaultSensor::Reset() {
       memset(m_pnReadings, 0, m_unNumReadings * sizeof(long int));
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::Destroy() {
+   void CTurtlebot3LIDARDefaultSensor::Destroy() {
       delete[] m_pnReadings;
    }
 
    /****************************************/
    /****************************************/
 
-   long CKheperaIVLIDARDefaultSensor::GetReading(UInt32 un_idx) const {
+   long CTurtlebot3LIDARDefaultSensor::GetReading(UInt32 un_idx) const {
       return m_pnReadings[un_idx];
    }
 
    /****************************************/
    /****************************************/
 
-   size_t CKheperaIVLIDARDefaultSensor::GetNumReadings() const {
+   size_t CTurtlebot3LIDARDefaultSensor::GetNumReadings() const {
       return m_unNumReadings;
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::PowerOn() {
+   void CTurtlebot3LIDARDefaultSensor::PowerOn() {
       m_unPowerLaserState = m_unPowerLaserState | 0x1;
-      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == TURTLEBOT3_POWERON_LASERON);
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::PowerOff() {
+   void CTurtlebot3LIDARDefaultSensor::PowerOff() {
       m_unPowerLaserState = m_unPowerLaserState & 0xFE;
-      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == TURTLEBOT3_POWERON_LASERON);
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::LaserOn() {
+   void CTurtlebot3LIDARDefaultSensor::LaserOn() {
       m_unPowerLaserState = m_unPowerLaserState | 0x2;
-      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == TURTLEBOT3_POWERON_LASERON);
    }
 
    /****************************************/
    /****************************************/
 
-   void CKheperaIVLIDARDefaultSensor::LaserOff() {
+   void CTurtlebot3LIDARDefaultSensor::LaserOff() {
       m_unPowerLaserState = m_unPowerLaserState & 0xFD;
-      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == TURTLEBOT3_POWERON_LASERON);
    }
 
    /****************************************/
    /****************************************/
 
-   REGISTER_SENSOR(CKheperaIVLIDARDefaultSensor,
-                   "kheperaiv_lidar", "default",
+   REGISTER_SENSOR(CTurtlebot3LIDARDefaultSensor,
+                   "turtlebot3_lidar", "default",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
-                   "The Khepera IV LIDAR sensor.",
-                   "This sensor accesses the Khepera IV LIDAR sensor. The sensors return the\n"
+                   "The Turtlebot 3 LIDAR sensor.",
+                   "This sensor accesses the Turtlebot 3 LIDAR sensor. The sensors return the\n"
                    "distance to nearby objects. In controllers, you must include the\n"
-                   "ci_khepera_lidar_sensor.h header.\n\n"
+                   "ci_turtlebot3_lidar_sensor.h header.\n\n"
                    "REQUIRED XML CONFIGURATION\n\n"
                    "  <controllers>\n"
                    "    ...\n"

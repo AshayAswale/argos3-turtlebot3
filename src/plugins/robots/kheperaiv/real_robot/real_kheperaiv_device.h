@@ -1,17 +1,17 @@
-#ifndef REAL_KHEPERAIV_DEVICE_H
-#define REAL_KHEPERAIV_DEVICE_H
+#ifndef REAL_TURTLEBOT3_DEVICE_H
+#define REAL_TURTLEBOT3_DEVICE_H
 
 #include <argos3/core/utility/datatypes/datatypes.h>
-#include <khepera/khepera.h>
+#include <turtlebot3/turtlebot3.h>
 
 using namespace argos;
 
-class CRealKheperaIVDevice {
+class CRealTurtlebot3Device {
 
 public:
 
-   CRealKheperaIVDevice(knet_dev_t* pt_dspic);
-   virtual ~CRealKheperaIVDevice() {}
+   CRealTurtlebot3Device(knet_dev_t* pt_dspic);
+   virtual ~CRealTurtlebot3Device() {}
 
    virtual void Do(Real f_elapsed_time) = 0;
 
@@ -30,4 +30,4 @@ private:
    
 };
 
-#endif // REAL_KHEPERAIV_DEVICE_H
+#endif // REAL_TURTLEBOT3_DEVICE_H

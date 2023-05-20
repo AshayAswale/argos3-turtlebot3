@@ -1,32 +1,32 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_ultrasound_default_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_ultrasound_default_sensor.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef KHEPERAIV_ULTRASOUND_DEFAULT_SENSOR_H
-#define KHEPERAIV_ULTRASOUND_DEFAULT_SENSOR_H
+#ifndef TURTLEBOT3_ULTRASOUND_DEFAULT_SENSOR_H
+#define TURTLEBOT3_ULTRASOUND_DEFAULT_SENSOR_H
 
 #include <string>
 #include <map>
 
 namespace argos {
-   class CKheperaIVUltrasoundDefaultSensor;
+   class CTurtlebot3UltrasoundDefaultSensor;
 }
 
-#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ultrasound_sensor.h>
+#include <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_ultrasound_sensor.h>
 #include <argos3/plugins/robots/generic/simulator/proximity_default_sensor.h>
 
 namespace argos {
 
-   class CKheperaIVUltrasoundDefaultSensor : public CCI_KheperaIVUltrasoundSensor,
+   class CTurtlebot3UltrasoundDefaultSensor : public CCI_Turtlebot3UltrasoundSensor,
                                              public CSimulatedSensor {
 
    public:
 
-      CKheperaIVUltrasoundDefaultSensor();
+      CTurtlebot3UltrasoundDefaultSensor();
 
-      virtual ~CKheperaIVUltrasoundDefaultSensor();
+      virtual ~CTurtlebot3UltrasoundDefaultSensor();
 
       virtual void SetRobot(CComposableEntity& c_entity);
 

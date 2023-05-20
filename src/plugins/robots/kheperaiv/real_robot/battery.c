@@ -1,4 +1,4 @@
-#include <khepera/khepera.h>
+#include <turtlebot3/turtlebot3.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -84,7 +84,7 @@ int main(int n_argc, char** pch_argv) {
       return -2;
    }
    /* Connect to robot */
-   tDSPic = knet_open("Khepera4:dsPic" , KNET_BUS_I2C, 0, NULL);
+   tDSPic = knet_open("Turtlebot3:dsPic" , KNET_BUS_I2C, 0, NULL);
    if (tDSPic == NULL) {
       RED;
       printf("(main:no status [open error])");

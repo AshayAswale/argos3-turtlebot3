@@ -1,10 +1,10 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_lidar_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_lidar_sensor.cpp>
  *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#include "ci_kheperaiv_lidar_sensor.h"
+#include "ci_turtlebot3_lidar_sensor.h"
 #include <argos3/core/utility/math/angles.h>
 
 #ifdef ARGOS_WITH_LUA
@@ -16,14 +16,14 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CCI_KheperaIVLIDARSensor::CCI_KheperaIVLIDARSensor() {
+   CCI_Turtlebot3LIDARSensor::CCI_Turtlebot3LIDARSensor() {
    }
 
    /****************************************/
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVLIDARSensor::CreateLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3LIDARSensor::CreateLuaState(lua_State* pt_lua_state) {
       // CLuaUtility::OpenRobotStateTable(pt_lua_state, "lidar");
       // for(size_t i = 0; i < GetReadings().size(); ++i) {
       //    CLuaUtility::AddToTable(pt_lua_state, i+1);
@@ -37,7 +37,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVLIDARSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3LIDARSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
       // lua_getfield(pt_lua_state, -1, "lidar");
       // for(size_t i = 0; i < GetReadings().size(); ++i) {
       //    lua_pushnumber(pt_lua_state, i+1                 );

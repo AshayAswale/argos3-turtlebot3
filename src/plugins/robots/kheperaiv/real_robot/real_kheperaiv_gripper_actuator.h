@@ -1,20 +1,20 @@
-#ifndef REAL_KHEPERAIV_GRIPPER_ACTUATOR_H
-#define REAL_KHEPERAIV_GRIPPER_ACTUATOR_H
+#ifndef REAL_TURTLEBOT3_GRIPPER_ACTUATOR_H
+#define REAL_TURTLEBOT3_GRIPPER_ACTUATOR_H
 
 #include <argos3/plugins/robots/generic/control_interface/ci_gripper_actuator.h>
-#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_device.h>
+#include <argos3/plugins/robots/turtlebot3/real_robot/real_turtlebot3_device.h>
 
 using namespace argos;
 
-class CRealKheperaIVGripperActuator :
+class CRealTurtlebot3GripperActuator :
    public CCI_GripperActuator,
-   public CRealKheperaIVDevice {
+   public CRealTurtlebot3Device {
 
 public:
 
-   CRealKheperaIVGripperActuator(knet_dev_t* pt_dspic);
+   CRealTurtlebot3GripperActuator(knet_dev_t* pt_dspic);
    
-   virtual ~CRealKheperaIVGripperActuator();
+   virtual ~CRealTurtlebot3GripperActuator();
 
    virtual void Do(Real f_elapsed_time);
    

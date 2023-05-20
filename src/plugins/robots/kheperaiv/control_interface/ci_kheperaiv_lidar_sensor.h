@@ -1,20 +1,20 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_lidar_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_lidar_sensor.h>
  *
- * @brief This file provides the definition of the Khepera IV LIDAR sensor.
+ * @brief This file provides the definition of the Turtlebot 3 LIDAR sensor.
  *
- * This file provides the definition of the Khepera IV LIDAR sensor.
+ * This file provides the definition of the Turtlebot 3 LIDAR sensor.
  * The sensor readings are evenly spaced on a slice around the body of
  * the robot.
  *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_LIDAR_SENSOR_H
-#define CCI_KHEPERAIV_LIDAR_SENSOR_H
+#ifndef CCI_TURTLEBOT3_LIDAR_SENSOR_H
+#define CCI_TURTLEBOT3_LIDAR_SENSOR_H
 
 namespace argos {
-   class CCI_KheperaIVLIDARSensor;
+   class CCI_Turtlebot3LIDARSensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -22,19 +22,19 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_KheperaIVLIDARSensor : public CCI_Sensor {
+   class CCI_Turtlebot3LIDARSensor : public CCI_Sensor {
 
    public:
 
       /**
        * Class constructor
        */
-      CCI_KheperaIVLIDARSensor();
+      CCI_Turtlebot3LIDARSensor();
 
       /**
        * Class destructor
        */
-      virtual ~CCI_KheperaIVLIDARSensor() {}
+      virtual ~CCI_Turtlebot3LIDARSensor() {}
 
       /**
        * Returns the readings of this sensor

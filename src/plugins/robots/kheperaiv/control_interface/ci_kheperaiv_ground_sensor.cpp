@@ -1,11 +1,11 @@
 
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ground_sensor.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_ground_sensor.cpp>
  *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#include "ci_kheperaiv_ground_sensor.h"
+#include "ci_turtlebot3_ground_sensor.h"
 
 #ifdef ARGOS_WITH_LUA
 #include <argos3/core/wrappers/lua/lua_utility.h>
@@ -16,7 +16,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CCI_KheperaIVGroundSensor::CCI_KheperaIVGroundSensor() :
+   CCI_Turtlebot3GroundSensor::CCI_Turtlebot3GroundSensor() :
       m_tReadings(4) {
       // Set the values for the ground sensor offset (taken from the CAD model, in cm)
       m_tReadings[0].Offset.Set(0.06140,  0.01);
@@ -28,7 +28,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   const CCI_KheperaIVGroundSensor::TReadings& CCI_KheperaIVGroundSensor::GetReadings() const {
+   const CCI_Turtlebot3GroundSensor::TReadings& CCI_Turtlebot3GroundSensor::GetReadings() const {
      return m_tReadings;
    }
       
@@ -36,7 +36,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVGroundSensor::SReading& s_reading) {
+                            const CCI_Turtlebot3GroundSensor::SReading& s_reading) {
       c_os << "Value=<" << s_reading.Value
            << ">, Offset=<" << s_reading.Offset << ">";
       return c_os;
@@ -46,7 +46,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVGroundSensor::TReadings& t_readings) {
+                            const CCI_Turtlebot3GroundSensor::TReadings& t_readings) {
       if(! t_readings.empty()) {
          c_os << "{ " << t_readings[0].Value << " }";
          for(UInt32 i = 1; i < t_readings.size(); ++i) {
@@ -61,7 +61,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVGroundSensor::CreateLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3GroundSensor::CreateLuaState(lua_State* pt_lua_state) {
       CLuaUtility::OpenRobotStateTable(pt_lua_state, "ground");
       for(size_t i = 0; i < m_tReadings.size(); ++i) {
          CLuaUtility::StartTable(pt_lua_state, i+1                            );
@@ -77,7 +77,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVGroundSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
+   void CCI_Turtlebot3GroundSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
       lua_getfield(pt_lua_state, -1, "ground");
       for(size_t i = 0; i < m_tReadings.size(); ++i) {
          lua_pushnumber(pt_lua_state, i+1                 );

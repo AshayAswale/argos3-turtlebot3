@@ -1,23 +1,23 @@
-#ifndef REAL_KHEPERAIV_PROXIMITY_SENSOR_H
-#define REAL_KHEPERAIV_PROXIMITY_SENSOR_H
+#ifndef REAL_TURTLEBOT3_PROXIMITY_SENSOR_H
+#define REAL_TURTLEBOT3_PROXIMITY_SENSOR_H
 
-#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
-#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_device.h>
+#include <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_proximity_sensor.h>
+#include <argos3/plugins/robots/turtlebot3/real_robot/real_turtlebot3_device.h>
 
 using namespace argos;
 
-class CRealKheperaIVProximitySensor :
-   public CCI_KheperaIVProximitySensor,
-   public CRealKheperaIVDevice {
+class CRealTurtlebot3ProximitySensor :
+   public CCI_Turtlebot3ProximitySensor,
+   public CRealTurtlebot3Device {
 
 public:
 
-   CRealKheperaIVProximitySensor(knet_dev_t* pt_dspic);
+   CRealTurtlebot3ProximitySensor(knet_dev_t* pt_dspic);
    
-   virtual ~CRealKheperaIVProximitySensor();
+   virtual ~CRealTurtlebot3ProximitySensor();
 
    virtual void Do(Real f_elapsed_time);
 
 };
 
-#endif // REAL_KHEPERAIV_PROXIMITY_SENSOR_H
+#endif // REAL_TURTLEBOT3_PROXIMITY_SENSOR_H

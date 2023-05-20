@@ -1,9 +1,9 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
+ * @file <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_proximity_sensor.h>
  *
- * @brief This file provides the definition of the Khepera IV proximity sensor.
+ * @brief This file provides the definition of the Turtlebot 3 proximity sensor.
  *
- * This file provides the definition of the Khepera IV proximity sensor.
+ * This file provides the definition of the Turtlebot 3 proximity sensor.
  * The sensors are evenly spaced on a ring around the base of the robot.
  * The readings are normalized between 0 and 1, and are in the following
  * order (seeing the robot from TOP, the camera is the FRONT):
@@ -21,11 +21,11 @@
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
-#ifndef CCI_KHEPERAIV_PROXIMITY_SENSOR_H
-#define CCI_KHEPERAIV_PROXIMITY_SENSOR_H
+#ifndef CCI_TURTLEBOT3_PROXIMITY_SENSOR_H
+#define CCI_TURTLEBOT3_PROXIMITY_SENSOR_H
 
 namespace argos {
-   class CCI_KheperaIVProximitySensor;
+   class CCI_Turtlebot3ProximitySensor;
 }
 
 #include <argos3/core/control_interface/ci_sensor.h>
@@ -33,7 +33,7 @@ namespace argos {
 
 namespace argos {
 
-   class CCI_KheperaIVProximitySensor : public CCI_Sensor {
+   class CCI_Turtlebot3ProximitySensor : public CCI_Sensor {
 
    public:
 
@@ -57,12 +57,12 @@ namespace argos {
       /**
        * Class constructor
        */
-      CCI_KheperaIVProximitySensor();
+      CCI_Turtlebot3ProximitySensor();
 
       /**
        * Class destructor
        */
-      virtual ~CCI_KheperaIVProximitySensor() {}
+      virtual ~CCI_Turtlebot3ProximitySensor() {}
 
       /**
        * Returns the readings of this sensor
@@ -81,8 +81,8 @@ namespace argos {
 
    };
 
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVProximitySensor::SReading& s_reading);
-   std::ostream& operator<<(std::ostream& c_os, const CCI_KheperaIVProximitySensor::TReadings& t_readings);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3ProximitySensor::SReading& s_reading);
+   std::ostream& operator<<(std::ostream& c_os, const CCI_Turtlebot3ProximitySensor::TReadings& t_readings);
 
 }
 

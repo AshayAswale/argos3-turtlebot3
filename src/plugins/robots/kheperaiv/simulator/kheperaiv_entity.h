@@ -1,17 +1,17 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_entity.h>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/turtlebot3_entity.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef KHEPERAIV_ENTITY_H
-#define KHEPERAIV_ENTITY_H
+#ifndef TURTLEBOT3_ENTITY_H
+#define TURTLEBOT3_ENTITY_H
 
 namespace argos {
    class CBatteryEquippedEntity;
    class CControllableEntity;
    class CEmbodiedEntity;
-   class CKheperaIVEntity;
+   class CTurtlebot3Entity;
    class CGroundSensorEquippedEntity;
    class CLEDEquippedEntity;
    class CLightSensorEquippedEntity;
@@ -24,7 +24,7 @@ namespace argos {
 
 namespace argos {
 
-   class CKheperaIVEntity : public CComposableEntity {
+   class CTurtlebot3Entity : public CComposableEntity {
 
    public:
 
@@ -32,9 +32,9 @@ namespace argos {
 
    public:
 
-      CKheperaIVEntity();
+      CTurtlebot3Entity();
 
-      CKheperaIVEntity(const std::string& str_id,
+      CTurtlebot3Entity(const std::string& str_id,
                        const std::string& str_controller_id,
                        const CVector3& c_position = CVector3(),
                        const CQuaternion& c_orientation = CQuaternion(),
@@ -93,7 +93,7 @@ namespace argos {
       }
 
       virtual std::string GetTypeDescription() const {
-         return "kheperaiv";
+         return "turtlebot3";
       }
 
    private:

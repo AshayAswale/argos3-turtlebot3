@@ -1,17 +1,17 @@
-#include "real_kheperaiv_leds_actuator.h"
+#include "real_turtlebot3_leds_actuator.h"
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIVLEDsActuator::CRealKheperaIVLEDsActuator(knet_dev_t* pt_dspic) :
-   CRealKheperaIVDevice(pt_dspic) {
+CRealTurtlebot3LEDsActuator::CRealTurtlebot3LEDsActuator(knet_dev_t* pt_dspic) :
+   CRealTurtlebot3Device(pt_dspic) {
    kh4_SetRGBLeds(0, 0, 0, 0, 0, 0, 0, 0, 0, GetDSPic());
 }
    
 /****************************************/
 /****************************************/
 
-CRealKheperaIVLEDsActuator::~CRealKheperaIVLEDsActuator() {
+CRealTurtlebot3LEDsActuator::~CRealTurtlebot3LEDsActuator() {
    kh4_SetRGBLeds(0, 0, 0, 0, 0, 0, 0, 0, 0, GetDSPic());
 }
    
@@ -20,7 +20,7 @@ CRealKheperaIVLEDsActuator::~CRealKheperaIVLEDsActuator() {
 
 static Real ARGOS2KH4 = 63.0 / 255.0;
 
-void CRealKheperaIVLEDsActuator::Do(Real f_elapsed_time) {
+void CRealTurtlebot3LEDsActuator::Do(Real f_elapsed_time) {
    kh4_SetRGBLeds(
       m_tSettings[0].GetRed()   * ARGOS2KH4,
       m_tSettings[0].GetGreen() * ARGOS2KH4,

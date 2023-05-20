@@ -1,20 +1,20 @@
-#include "real_kheperaiv_differential_steering_device.h"
+#include "real_turtlebot3_differential_steering_device.h"
 #include <argos3/core/utility/logging/argos_log.h>
 #include <memory>
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIVDifferentialSteeringDevice* CRealKheperaIVDifferentialSteeringDevice::GetInstance() {
-   static std::unique_ptr<CRealKheperaIVDifferentialSteeringDevice> pcInstance(
-      new CRealKheperaIVDifferentialSteeringDevice());
+CRealTurtlebot3DifferentialSteeringDevice* CRealTurtlebot3DifferentialSteeringDevice::GetInstance() {
+   static std::unique_ptr<CRealTurtlebot3DifferentialSteeringDevice> pcInstance(
+      new CRealTurtlebot3DifferentialSteeringDevice());
    return pcInstance.get();
 }
 
 /****************************************/
 /****************************************/
 
-CRealKheperaIVDifferentialSteeringDevice::CRealKheperaIVDifferentialSteeringDevice() :
+CRealTurtlebot3DifferentialSteeringDevice::CRealTurtlebot3DifferentialSteeringDevice() :
    m_fVelocityLeft(0.0),
    m_fVelocityRight(0.0) {}
 

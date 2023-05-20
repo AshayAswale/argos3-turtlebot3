@@ -1,15 +1,15 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/qtopengl_kheperaiv.h>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/qtopengl_turtlebot3.h>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#ifndef QTOPENGL_KHEPERAIV_H
-#define QTOPENGL_KHEPERAIV_H
+#ifndef QTOPENGL_TURTLEBOT3_H
+#define QTOPENGL_TURTLEBOT3_H
 
 namespace argos {
-   class CQTOpenGLKheperaIV;
-   class CKheperaIVEntity;
+   class CQTOpenGLTurtlebot3;
+   class CTurtlebot3Entity;
 }
 
 #ifdef __APPLE__
@@ -22,15 +22,15 @@ namespace argos {
 
 namespace argos {
 
-   class CQTOpenGLKheperaIV {
+   class CQTOpenGLTurtlebot3 {
 
    public:
 
-      CQTOpenGLKheperaIV();
+      CQTOpenGLTurtlebot3();
 
-      virtual ~CQTOpenGLKheperaIV();
+      virtual ~CQTOpenGLTurtlebot3();
 
-      virtual void Draw(CKheperaIVEntity& c_entity);
+      virtual void Draw(CTurtlebot3Entity& c_entity);
 
    protected:
 

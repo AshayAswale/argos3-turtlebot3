@@ -1,12 +1,12 @@
 /**
- * @file <argos3/plugins/robots/kheperaiv/simulator/qtopengl_kheperaiv.cpp>
+ * @file <argos3/plugins/robots/turtlebot3/simulator/qtopengl_turtlebot3.cpp>
  *
  * @author Carlo Pinciroli - <ilpincy@gmail.com>
  */
 
-#include "qtopengl_kheperaiv.h"
-#include "kheperaiv_entity.h"
-#include "kheperaiv_measures.h"
+#include "qtopengl_turtlebot3.h"
+#include "turtlebot3_entity.h"
+#include "turtlebot3_measures.h"
 #include <argos3/core/simulator/entity/embodied_entity.h>
 #include <argos3/plugins/simulator/entities/led_equipped_entity.h>
 #include <argos3/plugins/simulator/visualizations/qt-opengl/qtopengl_widget.h>
@@ -28,12 +28,12 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CQTOpenGLKheperaIV::CQTOpenGLKheperaIV() :
+   CQTOpenGLTurtlebot3::CQTOpenGLTurtlebot3() :
       m_unVertices(40) {
       /* Reserve the needed textures */
-      m_pcTextures[0] = MakeTexture("kheperaiv_texture_top.png");
-      m_pcTextures[1] = MakeTexture("kheperaiv_texture_bottom.png");
-      m_pcTextures[2] = MakeTexture("kheperaiv_texture_side.png");
+      m_pcTextures[0] = MakeTexture("turtlebot3_texture_top.png");
+      m_pcTextures[1] = MakeTexture("turtlebot3_texture_bottom.png");
+      m_pcTextures[2] = MakeTexture("turtlebot3_texture_side.png");
       /* Reserve the needed display lists */
       m_unLists = glGenLists(2);
       /* Assign indices for better referencing (later) */
@@ -52,7 +52,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CQTOpenGLKheperaIV::~CQTOpenGLKheperaIV() {
+   CQTOpenGLTurtlebot3::~CQTOpenGLTurtlebot3() {
       glDeleteLists(m_unLists, 2);
       delete m_pcTextures[0];
       delete m_pcTextures[1];
@@ -62,7 +62,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CQTOpenGLKheperaIV::Draw(CKheperaIVEntity& c_entity) {
+   void CQTOpenGLTurtlebot3::Draw(CTurtlebot3Entity& c_entity) {
       /* Place the body */
       glCallList(m_unBaseList);
       /* Place the LEDs */
@@ -81,7 +81,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CQTOpenGLKheperaIV::SetLEDMaterial(GLfloat f_red, GLfloat f_green, GLfloat f_blue) {
+   void CQTOpenGLTurtlebot3::SetLEDMaterial(GLfloat f_red, GLfloat f_green, GLfloat f_blue) {
       const GLfloat pfColor[]     = { f_red, f_green, f_blue, 1.0f };
       const GLfloat pfSpecular[]  = {  0.0f,    0.0f,   0.0f, 1.0f };
       const GLfloat pfShininess[] = {  0.0f                        };
@@ -95,7 +95,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CQTOpenGLKheperaIV::RenderBase() {
+   void CQTOpenGLTurtlebot3::RenderBase() {
       glEnable(GL_TEXTURE_2D);
       /* Used to precalculate the rotation */
       CVector2 cRot(1.0, CRadians::TWO_PI / m_unVertices);
@@ -104,22 +104,22 @@ namespace argos {
       glBegin(GL_TRIANGLE_FAN);
       glNormal3f(0.0, 0.0, 1.0);
       glTexCoord2f(0.5, 0.5);
-      glVertex3f(0.0, 0.0, KHEPERAIV_BASE_TOP);
+      glVertex3f(0.0, 0.0, TURTLEBOT3_BASE_TOP);
       CVector2 cVert(1.0, 0.0);
       glTexCoord2f(0.5 + 0.5 * cVert.GetX(),
                    0.5 + 0.5 * cVert.GetY());
-      glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                 KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                 KHEPERAIV_BASE_TOP);
+      glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                 TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                 TURTLEBOT3_BASE_TOP);
       for(GLuint i = 1; i <= m_unVertices; ++i) {
          cVert.Set(
             cVert.GetX() * cRot.GetX() - cVert.GetY() * cRot.GetY(),
             cVert.GetX() * cRot.GetY() + cVert.GetY() * cRot.GetX());
          glTexCoord2f(0.5 + 0.5 * cVert.GetX(),
                       0.5 + 0.5 * cVert.GetY());
-         glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                    KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                    KHEPERAIV_BASE_TOP);
+         glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                    TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                    TURTLEBOT3_BASE_TOP);
       }
       glEnd();
       /* Used to precalculate the rotation */
@@ -133,18 +133,18 @@ namespace argos {
       cVert.Set(1.0, 0.0);
       glTexCoord2f(0.5 + 0.5 * cVert.GetX(),
                    0.5 + 0.5 * cVert.GetY());
-      glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                 KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                 KHEPERAIV_BASE_ELEVATION);
+      glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                 TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                 TURTLEBOT3_BASE_ELEVATION);
       for(GLuint i = 1; i <= m_unVertices; ++i) {
          cVert.Set(
             cVert.GetX() * cRot.GetX() - cVert.GetY() * cRot.GetY(),
             cVert.GetX() * cRot.GetY() + cVert.GetY() * cRot.GetX());
          glTexCoord2f(0.5 + 0.5 * cVert.GetX(),
                       0.5 + 0.5 * cVert.GetY());
-         glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                    KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                    KHEPERAIV_BASE_ELEVATION);
+         glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                    TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                    TURTLEBOT3_BASE_ELEVATION);
       }
       glEnd();
       /* Side face is a cylinder */
@@ -153,26 +153,26 @@ namespace argos {
       cVert.Set(1.0, 0.0);
       glNormal3f(cVert.GetX(), cVert.GetY(), 0.0);
       glTexCoord2f(0.5, 0.0);
-      glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                 KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                 KHEPERAIV_BASE_ELEVATION);
+      glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                 TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                 TURTLEBOT3_BASE_ELEVATION);
       glTexCoord2f(0.5, 0.96875);
-      glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                 KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                 KHEPERAIV_BASE_TOP);
+      glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                 TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                 TURTLEBOT3_BASE_TOP);
       for(GLuint i = 1; i <= m_unVertices; ++i) {
          cVert.Set(
             cVert.GetX() * cRot.GetX() - cVert.GetY() * cRot.GetY(),
             cVert.GetX() * cRot.GetY() + cVert.GetY() * cRot.GetX());
          glNormal3f(cVert.GetX(), cVert.GetY(), 0.0);
          glTexCoord2f(0.5 + (GLfloat)i / m_unVertices, 0.0);
-         glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                    KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                    KHEPERAIV_BASE_ELEVATION);
+         glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                    TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                    TURTLEBOT3_BASE_ELEVATION);
          glTexCoord2f(0.5 + (GLfloat)i / m_unVertices, 0.96875);
-         glVertex3f(KHEPERAIV_BASE_RADIUS * cVert.GetX(),
-                    KHEPERAIV_BASE_RADIUS * cVert.GetY(),
-                    KHEPERAIV_BASE_TOP);
+         glVertex3f(TURTLEBOT3_BASE_RADIUS * cVert.GetX(),
+                    TURTLEBOT3_BASE_RADIUS * cVert.GetY(),
+                    TURTLEBOT3_BASE_TOP);
       }
       glEnd();
       glDisable(GL_TEXTURE_2D);
@@ -181,7 +181,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   void CQTOpenGLKheperaIV::RenderLED() {
+   void CQTOpenGLTurtlebot3::RenderLED() {
       /* Draw it as a tiny pyramid pointing to Z upwards
          (with no base, cause it's not visible anyway) */
       glBegin(GL_TRIANGLES);
@@ -207,28 +207,28 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   class CQTOpenGLOperationDrawKheperaIVNormal : public CQTOpenGLOperationDrawNormal {
+   class CQTOpenGLOperationDrawTurtlebot3Normal : public CQTOpenGLOperationDrawNormal {
    public:
       void ApplyTo(CQTOpenGLWidget& c_visualization,
-                   CKheperaIVEntity& c_entity) {
-         static CQTOpenGLKheperaIV m_cModel;
+                   CTurtlebot3Entity& c_entity) {
+         static CQTOpenGLTurtlebot3 m_cModel;
          c_visualization.DrawRays(c_entity.GetControllableEntity());
          c_visualization.DrawEntity(c_entity.GetEmbodiedEntity());
          m_cModel.Draw(c_entity);
       }
    };
 
-   class CQTOpenGLOperationDrawKheperaIVSelected : public CQTOpenGLOperationDrawSelected {
+   class CQTOpenGLOperationDrawTurtlebot3Selected : public CQTOpenGLOperationDrawSelected {
    public:
       void ApplyTo(CQTOpenGLWidget& c_visualization,
-                   CKheperaIVEntity& c_entity) {
+                   CTurtlebot3Entity& c_entity) {
          c_visualization.DrawBoundingBox(c_entity.GetEmbodiedEntity());
       }
    };
 
-   REGISTER_QTOPENGL_ENTITY_OPERATION(CQTOpenGLOperationDrawNormal, CQTOpenGLOperationDrawKheperaIVNormal, CKheperaIVEntity);
+   REGISTER_QTOPENGL_ENTITY_OPERATION(CQTOpenGLOperationDrawNormal, CQTOpenGLOperationDrawTurtlebot3Normal, CTurtlebot3Entity);
 
-   REGISTER_QTOPENGL_ENTITY_OPERATION(CQTOpenGLOperationDrawSelected, CQTOpenGLOperationDrawKheperaIVSelected, CKheperaIVEntity);
+   REGISTER_QTOPENGL_ENTITY_OPERATION(CQTOpenGLOperationDrawSelected, CQTOpenGLOperationDrawTurtlebot3Selected, CTurtlebot3Entity);
 
    /****************************************/
    /****************************************/
