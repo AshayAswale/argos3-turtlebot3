@@ -16,19 +16,19 @@
   <!-- *************** -->
   <controllers>
 
-    <kheperaiv_diffusion_controller id="khivdc"
-                               library="build/testing/libkheperaiv_diffusion">
+    <turtlebot3_diffusion_controller id="tb3dc"
+                               library="build/testing/libturtlebot3_diffusion">
       <actuators>
         <differential_steering implementation="default" />
       </actuators>
       <sensors>
         <differential_steering implementation="default" />
-        <kheperaiv_proximity implementation="default" show_rays="false" />
-        <kheperaiv_ultrasound implementation="default" show_rays="false" />
-        <!-- <kheperaiv_lidar implementation="default" num_readings="10" show_rays="true" /> -->
+        <turtlebot3_proximity implementation="default" show_rays="false" />
+        <turtlebot3_ultrasound implementation="default" show_rays="false" />
+        <!-- <turtlebot3_lidar implementation="default" num_readings="10" show_rays="true" /> -->
       </sensors>
       <params alpha="7.5" delta="0.1" velocity="5" />
-    </kheperaiv_diffusion_controller>
+    </turtlebot3_diffusion_controller>
 
   </controllers>
 
@@ -63,9 +63,9 @@
       <position method="uniform" min="-2,-2,0" max="2,2,0" />
       <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
       <entity quantity="1" max_trials="100">
-        <kheperaiv id="khiv">
-          <controller config="khivdc" />
-        </kheperaiv>
+        <turtlebot3 id="tb3">
+          <controller config="tb3dc" />
+        </turtlebot3>
       </entity>
     </distribute>
 

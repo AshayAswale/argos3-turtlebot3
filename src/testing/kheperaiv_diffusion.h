@@ -1,5 +1,5 @@
-#ifndef KHEPERAIV_DIFFUSION_H
-#define KHEPERAIV_DIFFUSION_H
+#ifndef TURTLEBOT3_DIFFUSION_H
+#define TURTLEBOT3_DIFFUSION_H
 
 /*
  * Include some necessary headers.
@@ -8,7 +8,7 @@
 #include <argos3/core/control_interface/ci_controller.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_sensor.h>
-#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
+#include <argos3/plugins/robots/turtlebot3/control_interface/ci_turtlebot3_proximity_sensor.h>
 
 /*
  * All the ARGoS stuff in the 'argos' namespace.
@@ -19,15 +19,15 @@ using namespace argos;
 /*
  * A controller is simply an implementation of the CCI_Controller class.
  */
-class CKheperaIVDiffusion : public CCI_Controller {
+class CTurtlebot3Diffusion : public CCI_Controller {
 
 public:
 
    /* Class constructor. */
-   CKheperaIVDiffusion();
+   CTurtlebot3Diffusion();
 
    /* Class destructor. */
-   virtual ~CKheperaIVDiffusion() {}
+   virtual ~CTurtlebot3Diffusion() {}
 
    /*
     * This function initializes the controller.
@@ -66,8 +66,8 @@ private:
    CCI_DifferentialSteeringActuator* m_pcWheels;
    /* Pointer to the differential steering sensor */
    CCI_DifferentialSteeringSensor* m_pcEncoder;
-   /* Pointer to the Khepera IV proximity sensor */
-   CCI_KheperaIVProximitySensor* m_pcProximity;
+   /* Pointer to the Turtlebot 3 proximity sensor */
+   CCI_Turtlebot3ProximitySensor* m_pcProximity;
 
    /*
     * The following variables are used as parameters for the

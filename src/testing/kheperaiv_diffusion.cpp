@@ -1,5 +1,5 @@
 /* Include the controller definition */
-#include "kheperaiv_diffusion.h"
+#include "turtlebot3_diffusion.h"
 /* Function definitions for XML parsing */
 #include <argos3/core/utility/configuration/argos_configuration.h>
 /* 2D vector definition */
@@ -10,7 +10,7 @@
 /****************************************/
 /****************************************/
 
-CKheperaIVDiffusion::CKheperaIVDiffusion() :
+CTurtlebot3Diffusion::CTurtlebot3Diffusion() :
    m_pcWheels(NULL),
    m_pcProximity(NULL),
    m_cAlpha(10.0f),
@@ -22,7 +22,7 @@ CKheperaIVDiffusion::CKheperaIVDiffusion() :
 /****************************************/
 /****************************************/
 
-void CKheperaIVDiffusion::Init(TConfigurationNode& t_node) {
+void CTurtlebot3Diffusion::Init(TConfigurationNode& t_node) {
    /*
     * Get sensor/actuator handles
     *
@@ -40,14 +40,14 @@ void CKheperaIVDiffusion::Init(TConfigurationNode& t_node) {
     *
     * NOTE: ARGoS creates and initializes actuators and sensors
     * internally, on the basis of the lists provided the configuration
-    * file at the <controllers><kheperaiv_diffusion><actuators> and
-    * <controllers><kheperaiv_diffusion><sensors> sections. If you forgot to
+    * file at the <controllers><turtlebot3_diffusion><actuators> and
+    * <controllers><turtlebot3_diffusion><sensors> sections. If you forgot to
     * list a device in the XML and then you request it here, an error
     * occurs.
     */
    m_pcWheels    = GetActuator<CCI_DifferentialSteeringActuator>("differential_steering");
    m_pcEncoder   = GetSensor  <CCI_DifferentialSteeringSensor  >("differential_steering");
-   m_pcProximity = GetSensor  <CCI_KheperaIVProximitySensor    >("kheperaiv_proximity"  );
+   m_pcProximity = GetSensor  <CCI_Turtlebot3ProximitySensor    >("turtlebot3_proximity"  );
    /*
     * Parse the configuration file
     *
@@ -64,9 +64,9 @@ void CKheperaIVDiffusion::Init(TConfigurationNode& t_node) {
 /****************************************/
 /****************************************/
 
-void CKheperaIVDiffusion::ControlStep() {
+void CTurtlebot3Diffusion::ControlStep() {
    /* Get readings from proximity sensor */
-   const CCI_KheperaIVProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
+   const CCI_Turtlebot3ProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
    /* Sum them together */
    CVector2 cAccumulator;
    for(size_t i = 0; i < tProxReads.size(); ++i) {
@@ -113,4 +113,4 @@ void CKheperaIVDiffusion::ControlStep() {
  * controller class to instantiate.
  * See also the configuration files for an example of how this is used.
  */
-REGISTER_CONTROLLER(CKheperaIVDiffusion, "kheperaiv_diffusion_controller")
+REGISTER_CONTROLLER(CTurtlebot3Diffusion, "turtlebot3_diffusion_controller")
