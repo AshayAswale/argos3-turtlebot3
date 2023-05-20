@@ -8,8 +8,8 @@ This code allows you to simulate the Khepera IV in ARGoS3, and to run ARGoS3 con
 
 ## To Simulate The Khepera IV in ARGoS3 ##
 
-    $ mkdir build_sim
-    $ cd build_sim
+    $ mkdir build
+    $ cd build
     $ cmake -DCMAKE_BUILD_TYPE=Release ../src
     $ make
     $ sudo make install
