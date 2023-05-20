@@ -65,17 +65,6 @@ namespace argos {
    void CQTOpenGLTurtlebot3::Draw(CTurtlebot3Entity& c_entity) {
       /* Place the body */
       glCallList(m_unBaseList);
-      /* Place the LEDs */
-      CLEDEquippedEntity& cLEDEquippedEntity = c_entity.GetLEDEquippedEntity();
-      for(UInt32 i = 0; i < 3; i++) {
-         const CColor& cColor = cLEDEquippedEntity.GetLED(i).GetColor();
-         const CVector3& cOffset = cLEDEquippedEntity.GetLEDOffset(i);
-         SetLEDMaterial(cColor.GetRed(), cColor.GetGreen(), cColor.GetBlue());
-         glPushMatrix();
-         glTranslatef(cOffset.GetX(), cOffset.GetY(), cOffset.GetZ());
-         glCallList(m_unLEDList);
-         glPopMatrix();
-      }
    }
 
    /****************************************/

@@ -14,6 +14,13 @@
 
 #include <cstring>
 
+   /****************************************/
+   /****************************************/
+   // Lidar Specs:
+   // https://emanual.robotis.com/assets/docs/LDS_Basic_Specification.pdf
+   //
+   /****************************************/
+   /****************************************/
 namespace argos {
 
    /****************************************/
@@ -26,7 +33,7 @@ namespace argos {
 
    CTurtlebot3LIDARDefaultSensor::CTurtlebot3LIDARDefaultSensor() :
       m_pnReadings(NULL),
-      m_unNumReadings(682),
+      m_unNumReadings(1800),
       m_unPowerLaserState(TURTLEBOT3_POWERON_LASERON),
       m_pcEmbodiedEntity(NULL),
       m_bShowRays(false),
