@@ -126,6 +126,9 @@ install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_TURTLEBOT3_CONTROLINTERFACE} DESTI
 
 if(ARGOS_BUILD_FOR_SIMULATOR)
   install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_TURTLEBOT3_SIMULATOR} DESTINATION include/argos3/plugins/robots/turtlebot3/simulator)
+  if(ARGOS_QTOPENGL_FOUND)
+    install(DIRECTORY simulator/models DESTINATION include/argos3/plugins/simulator/visualizations/qt-opengl)
+  endif(ARGOS_QTOPENGL_FOUND)
   install(FILES simulator/turtlebot3_texture_bottom.png simulator/turtlebot3_texture_side.png simulator/turtlebot3_texture_top.png DESTINATION include/argos3/plugins/simulator/visualizations/qt-opengl/textures)
 else(ARGOS_BUILD_FOR_SIMULATOR)
   install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_TURTLEBOT3_REALROBOT} DESTINATION include/argos3/plugins/robots/turtlebot3/real_robot)
